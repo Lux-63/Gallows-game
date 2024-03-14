@@ -14,7 +14,9 @@ function adChars (n) {
 }
     
 
-//function handleKey(event) {}
+//function handleKey(event) {
+    
+}
 
 /**
  * массив слов
