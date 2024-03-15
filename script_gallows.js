@@ -7,11 +7,11 @@ const privet =document.querySelector(".frame");
 privet.innerHTML =`<p>Привет, <b>${nikName}.</b> <br>Начнем игру</p>` 
 console.log(`Привет, ${nikName}`)
 
-document.getElementById("input").addEventListener("keypress", adChars)
-function adChars (n) {
+document.getElementById("check").addEventListener("click", () => {
     let a = document.getElementById("input").value;
     console.log(a);
-}
+})
+    
     
 
 //function handleKey(event) {

@@ -1,3 +1,0 @@
-# Gallows-game
-
-    test
