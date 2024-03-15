@@ -3,15 +3,19 @@
 let nikName = prompt('Добро пожаловать в игру "Виселица" как вас зовут?');
 const gameInfo = document.querySelector(".information");
 const hiddenWord = document.querySelector(".progress");
-const privet =document.querySelector(".frame"); 
+const privet = document.querySelector(".frame"); 
+const meaning = document.getElementById("input");
+
+
+
 privet.innerHTML =`<p>Привет, <b>${nikName}.</b> <br>Начнем игру</p>` 
 console.log(`Привет, ${nikName}`)
 
 document.getElementById("check").addEventListener("click", () => {
-    let a = document.getElementById("input").value;
-    console.log(a);
+    console.log(meaning.value);
+    meaning.value = "";
+    meaning.focus();
 })
-    
     
 
 //function handleKey(event) {
