@@ -1,54 +1,58 @@
+* {
+  margin: auto;
+}
+
 .frame {
-    display: flex;
-    justify-content: center;
-    margin: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 200px;
-    height: 50px;
-    text-align: center;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 200px;
+  height: 50px;
+  text-align: center;
 }
 .canvas {
-    display: flex;
-    justify-content: center;
-    margin: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 200px;
-    height: 200px;
-    border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 200px;
+  height: 200px;
+  border: 2px solid black;
 }
 
 .information {
-    display: flex;
-    justify-content: center;
-    margin: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 400px;
-    height: 80px;
-    border: 2px solid black;
-    text-align: center;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 400px;
+  height: 80px;
+  border: 2px solid black;
+  text-align: center;
 }
 .progress {
-    display: flex;
-    justify-content: center;
-    margin: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 400px;
-    height: 50px;
-    border: 2px solid black;
-    text-align: center;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 400px;
+  height: 50px;
+  border: 2px solid black;
+  text-align: center;
 }
 .answer {
-    display: flex;
-    justify-content: space-between;
-    margin: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 400px;
-    height: 100px;
-    border: 2px solid black;
-    text-align: center;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 400px;
+  height: 100px;
+  border: 2px solid black;
+  text-align: center;
 }
