@@ -1,19 +1,20 @@
 let nikName = prompt('Добро пожаловать в игру "Виселица" как вас зовут?');
+
 const gameInfo = document.querySelector(".information");
 const hiddenWord = document.querySelector(".progress");
-const privet = document.querySelector(".frame");
-const meaning = document.querySelector(".box-2");
-const reset = document.querySelector(".reset");
-const stopGames = document.querySelector(".end");
-let a = "";
+const topWindow = document.querySelector(".frame");
+const enteredValue = document.querySelector(".box-2");
+const resetGame = document.querySelector(".reset");
+const stopGame = document.querySelector(".end");
+let value = "";
 
-privet.innerHTML = `<p>Привет, <b>${nikName}.</b> <br>Начнем игру</p>`;
+topWindow.innerHTML = `<p>Привет, <b>${nikName}.</b> <br>Начнем игру!</p>`;
 console.log(`Привет, ${nikName}`);
+ 
 
-
-
-let words = ["программа", "макака", "прекрасный", "оладушек", "чебурек"];
-let word = words[Math.floor(Math.random() * words.length)];
+// массив слов и выбор случайного числа
+let setWords = ["программа", "макака", "прекрасный", "оладушек", "чебурек"];
+let randomWord = setWords[Math.floor(Math.random() * setWords.length)];
 let attempts = 7;
 let answer = [];
 for (let i = 0; word.length > i; i++) {
@@ -21,34 +22,35 @@ for (let i = 0; word.length > i; i++) {
 }
 let remainingLetters = word.length;
 console.log(word);
-// Показываем состояние игры
+
 hiddenWord.innerHTML = answer.join(" ");
 
 gameInfo.innerHTML = 'Угадайте букву или нажмите "Отмена" для выхода из игры.';
 
-function stop() {
-    a = "pause";
-    console.log(a);
+function stopGame() {
+    gameProcess("pause");
+    console.log(value);
 }
-function restart() {
-    a = "restart";
-    console.log(a);
+function restartGame() {
+    gameProcess("restart");
+    console.log(value);
 }
-function checkAd() {
-  a = meaning.value.toLowerCase();
+function checkLetter() {
+  value = meaning.value.toLowerCase();
   meaning.value = "";
   meaning.focus();
-  console.log(a);
+  console.log(value);
   gameInfo.innerHTML = 'Угадайте букву или нажмите "Отмена" для выхода из игры.';
 }
 
+function gameProcess(vauel) {
   while (remainingLetters > 0 && attempts > 0) {
     console.log("условие выполняется",)
 
-    if (a == "pause") {
-        gameInfo.innerHTML = "Конец игры";
+    if (value == "pause") {
+        gameInfo.textContent = "Конец игры";
         console.log("Конец игры")
-    } if (a === "restart"){
+    } if (value === "restart"){
         word = words[Math.floor(Math.random() * words.length)];
         console.log(word)
     } if (aasdGf.length !== 1) {
@@ -77,4 +79,5 @@ function checkAd() {
     alert(answer.join(" "));
     alert('Отлично! Было загадано слово "' + word + '"');
   }
+}
 
