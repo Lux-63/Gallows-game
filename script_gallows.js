@@ -10,7 +10,6 @@ const resetGame = document.querySelector(".reset");
 const stopGameAl = document.querySelector(".end");
 
 let attempts = 7;
-let meaningVal = "";
 let answer = [];
 let randomWord = ""
 let remainingLetters = 0;
@@ -32,25 +31,17 @@ remainingLetters = randomWord.length;
 console.log(randomWord);
 }
 
-
-
 gameInfo.innerHTML = 'Угадайте букву или нажмите "Отмена" для выхода из игры.';
 
-function stopGame(n) {
-  console.log(n);
-  gameProcess("pause");
-}
-function restartGame(n) {
-  console.log(n);
-  gameProcess("restart");
-}
+
 function checkLetter(n) {
-  gameProcess(enteredValue.value.toLowerCase());
+  n = enteredValue.value.toLowerCase();
   enteredValue.value = "";
   enteredValue.focus();
   console.log(enteredValue.value.toLowerCase());
+  gameProcess(n);
   gameInfo.innerHTML =
-    'Угадайте букву или нажмите "Отмена" для выхода из игры.';
+    'Угадайте букву или нажмите "Выйти из игры" что бы выйти.';
 }
 
 function gameProcess(meaning) {
@@ -60,13 +51,8 @@ function gameProcess(meaning) {
       console.log("Конец игры");
       break;
     }
-    if (meaning === "restart") {
-      wordGeteranion();
-      console.log(meaning);
-      break;
-    }
     if (meaning.length !== 1) {
-      gameInfo.innerHTML = "Пожалуйста, введите только одну букву.";
+      gameInfo.innerHTML = "Пожалуйста, введите одну букву.";
     } else {
       for (let j = 0; j < randomWord.length; j++) {
         if (answer[j] === meaning) {
@@ -87,8 +73,8 @@ function gameProcess(meaning) {
   }
 
   if (attempts == 0) {
-    alert('вы проиграли! Было загадано слово "' + randomWord + '"');
+    gameInfo.innerHTML = 'вы проиграли! Было загадано слово "' + randomWord + '"';
   } else {
-    alert('Отлично! Было загадано слово "' + randomWord + '"');
+    gameInfo.innerHTML = 'Отлично! Было загадано слово "' + randomWord + '"';
   }
 }

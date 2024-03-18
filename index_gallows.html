@@ -13,10 +13,10 @@
   <div><canvas id="canvas" class="canvas"></canvas></div>
   <div id="information" class="information"></div>
   <div id="answer" class="answer">
-    <button id="check" for="input" class="check" onclick="checkLetter()">Ваш ответ?</button>
+    <button id="check" class="check" onclick="checkLetter">Ваш ответ?</button>
     <form><input id="input" type="text" class="box-2">Напишите 1 букву</form>
-    <button class="reset" onclick="wordGeteranion()">Начать заново</button>
-    <button class="end" onclick="stopGame()">Выйти из игры</button>
+    <button class="reset" onclick='wordGeteranion()'>Начать заново</button>
+    <button class="end" onclick='gameProcess("pause")'>Выйти из игры</button>
     </form>
   </div>
   <div id="progress" class="progress"></div>
