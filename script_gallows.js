@@ -19,7 +19,9 @@ generationWord();
 console.log(`Привет, ${nikName}`, randomWord);
 
 // выбор случайного слова
-
+/**
+ * генерация слова, замена букв на символы
+ */
 function generationWord() {
   answer = [];
   attempts = 6;
@@ -32,7 +34,9 @@ function generationWord() {
   console.log(randomWord, remainingLetters);
   gameInfoElem.innerHTML = 'Угадайте букву или нажмите ""Начать заново что бы сменить слово.';
 }
-
+/**
+ * вытягивание значения. проверка на количесвто букв и жизней
+ */
 function checkLetter() {
   const n = enteredValueElem.value.toLowerCase();
   enteredValueElem.value = "";
@@ -50,6 +54,10 @@ function checkLetter() {
   }
 }
 
+/**
+ * процесс игры. проверка наличия буквы, отгаданной буквы и конец игры
+ * @param {Text} meaning 
+ */
 function gameProcess(meaning) {
   if (randomWord.includes(meaning) == false && attempts >= 1) {
     gameInfoElem.innerHTML = `такой буквы нету. У вас осталось попыток: "${attempts}"`;
