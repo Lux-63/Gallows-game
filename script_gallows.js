@@ -114,6 +114,9 @@ function checkLetter() {
   if (n.length !== 1) {
     gameInfoElem.innerHTML = "Пожалуйста, введите одну букву.";
     console.log("введено меньше или больше одной буквы");
+  } else if (answer.includes("_") == false) {
+    gameInfoElem.innerHTML = `Хорошо! ${nikName} Было загадано слово "${randomWord}"`;
+    console.log("Победа");
   } else if (attempts == 0) {
     gameInfoElem.innerHTML = `${nikName} Вы проиграли! Было загадано слово "${randomWord}"`;
     chanceLife[attempts]();
@@ -129,7 +132,7 @@ function checkLetter() {
  * @param {Text} meaning 
  */
 function gameProcess(meaning) {
-  if (randomWord.includes(meaning) == false && attempts >= 0) {
+  if (randomWord.includes(meaning) == false && attempts >= 0 && answer.includes("_") == true) {
     gameInfoElem.innerHTML = `такой буквы нету. У вас осталось попыток: "${attempts}"`;
     chanceLife[attempts]();
     attempts--;
@@ -145,10 +148,6 @@ function gameProcess(meaning) {
       hiddenWordElem.innerHTML = answer.join(" ");
       gameInfoElem.innerHTML = `Поздравляем! Такая буква есть. Следующая буква?.`
       console.log("Буква найдена", answer);
-      if (answer.includes("_") == false) {
-        gameInfoElem.innerHTML = `Хорошо! ${nikName} Было загадано слово "${randomWord}"`;
-        console.log("Победа");
-    }
   }
 }
 }
