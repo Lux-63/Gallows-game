@@ -1,86 +1,75 @@
-let nikName = prompt('Добро пожаловать в игру "Виселица" как вас зовут?');
+const nikName = prompt('Добро пожаловать в игру "Виселица" как вас зовут?');
 
-let setWords = ["программа", "макака", "прекрасный", "оладушек", "чебурек"];
+let wordsArray = ["программа", "макака", "прекрасный", "оладушек", "чебурек"];
 
-const gameInfo = document.querySelector(".information");
-const hiddenWord = document.querySelector(".progress");
-const topWindow = document.querySelector(".frame");
-const enteredValue = document.querySelector(".box-2");
-const resetGame = document.querySelector(".reset");
-const stopGameAl = document.querySelector(".end");
+const gameInfoElem = document.querySelector(".information");
+const hiddenWordElem = document.querySelector(".progress");
+const topWindowElem = document.querySelector(".frame");
+const enteredValueElem = document.querySelector(".box-2");
+const resetGameElem = document.querySelector(".reset");
+const stopGameAlElem = document.querySelector(".end");
 
-let attempts = 7;
+let attempts = 6;
 let answer = [];
 let randomWord = "";
 let remainingLetters = 0;
 
-topWindow.innerHTML = `<p>Привет, <b>${nikName}.</b> <br>Начнем игру!</p>`;
-wordGeteranion();
-console.log(`Привет, ${nikName}`);
+topWindowElem.innerHTML = `<p>Привет, <b>${nikName}.</b> <br>Начнем игру!</p> `;
+generationWord();
+console.log(`Привет, ${nikName}`, randomWord);
 
 // выбор случайного слова
 
-function wordGeteranion() {
+function generationWord() {
   answer = [];
-  randomWord = setWords[Math.floor(Math.random() * setWords.length)];
+  attempts = 6;
+  randomWord = wordsArray[Math.floor(Math.random() * wordsArray.length)];
   for (let i = 0; randomWord.length > i; i++) {
     answer[i] = "_";
-    hiddenWord.innerHTML = answer.join(" ");
   }
+  hiddenWordElem.innerHTML = answer.join(" ");
   remainingLetters = randomWord.length;
   console.log(randomWord, remainingLetters);
-  gameInfo.innerHTML =
-    'Угадайте букву или нажмите "Отмена" для выхода из игры.';
+  gameInfoElem.innerHTML = 'Угадайте букву или нажмите ""Начать заново что бы сменить слово.';
 }
 
-function checkLetter(n) {
-  n = enteredValue.value.toLowerCase();
-  enteredValue.value = "";
-  enteredValue.focus();
-  console.log(enteredValue.value.toLowerCase());
-  gameProcess(n);
-  gameInfo.innerHTML =
-    'Угадайте букву или нажмите "Выйти из игры" что бы выйти.';
+function checkLetter() {
+  const n = enteredValueElem.value.toLowerCase();
+  enteredValueElem.value = "";
+  enteredValueElem.focus();
+  console.log(enteredValueElem.value.toLowerCase());
+  if (n.length !== 1) {
+    gameInfoElem.innerHTML = "Пожалуйста, введите одну букву.";
+    console.log("введено меньше или больше одной буквы");
+  } else if (attempts == 0) {
+    gameInfoElem.innerHTML = `${nikName} Вы проиграли! Было загадано слово "${randomWord}"`;
+    console.log("Проигрыш");
+  } else {
+    gameInfoElem.innerHTML = 'Угадайте букву или нажмите "Начать заново что бы сменить слово.';
+    gameProcess(n);
+  }
 }
 
 function gameProcess(meaning) {
-  while (remainingLetters > 0 && attempts > 0) {
-    if (meaning == "pause") {
-      gameInfo.textContent = "Конец игры";
-      console.log("Конец игры");
-      break;
-    }
-    if (meaning.length !== 1) {
-      gameInfo.innerHTML = "Пожалуйста, введите одну букву.";
-      console.log("введено меньше или больше одной буквы");
-    } else {
-      for (let j = 0; j < randomWord.length; j++) {
-        if (answer[j] == meaning) {
-          gameInfo.innerHTML = `${nikName} вы уже угадали эту букву!`;
-          console.log("такая буква уже есть");
-          break;
-        } else if (randomWord[j] === meaning) {
-          answer[j] = meaning;
-          remainingLetters--;
-          console.log("Буква найдена", answer);
-        }
-        if (randomWord.includes(meaning) == false && attempts >= 1) {
-          gameInfo.innerHTML = `${nikName} такой буквы нету. У вас осталось попыток: "${
-            attempts - 1
-          }"`;
-          attempts--;
-          console.log("минус жизнь", attempts);
-        }
-      }
+  if (randomWord.includes(meaning) == false && attempts >= 1) {
+    gameInfoElem.innerHTML = `такой буквы нету. У вас осталось попыток: "${attempts}"`;
+    attempts--;
+    console.log("минус жизнь", attempts);
+  }
+  for (let j = 0; j < randomWord.length; j++) {
+    if (answer[j] == meaning) {
+      gameInfoElem.innerHTML = `${nikName} вы уже угадали эту букву!`;
+      console.log("такая буква уже есть");
+    } else if (randomWord[j] === meaning) {
+      answer[j] = meaning;
+      remainingLetters--;
+      hiddenWordElem.innerHTML = answer.join(" ");
+      gameInfoElem.innerHTML = `Поздравляем! Такая буква есть. Следующая буква?.`
+      console.log("Буква найдена", answer);
+      if (answer.includes("_") == false) {
+        gameInfoElem.innerHTML = `'Хорошо! ${nikName} Было загадано слово "${randomWord}"`;
+        console.log("Победа");
     }
   }
-
-  if (attempts == 0) {
-    gameInfo.innerHTML =
-      'вы проиграли! Было загадано слово "' + randomWord + '"';
-    console.log("Проигрыш");
-  } else {
-    gameInfo.innerHTML = 'Хорошо! Было загадано слово "' + randomWord + '"';
-    console.log("Победа");
-  }
+}
 }
