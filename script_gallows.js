@@ -1,4 +1,4 @@
-const nikName = prompt('Добро пожаловать в игру "Виселица" как вас зовут?')
+const nikName = prompt('Добро пожаловать в игру "Виселица" как вас зовут?');
 //массив слов
 let wordsArray = ["программа", "макака", "прекрасный", "оладушек", "чебурек"];
 //мыссив функций canvas
@@ -20,71 +20,84 @@ topWindowElem.innerHTML = `<p>Привет, <b>${nikName}.</b> <br>Начнем 
 generationWord();
 console.log(`Привет, ${nikName}`, randomWord);
 
-
 /**
  * функции Canvas
  */
-function oneLife () {
-    lifeField.beginPath();
-    lifeField.moveTo(0, 180);
-    lifeField.lineTo(160, 180);
-    lifeField.moveTo(30, 180);
-    lifeField.lineTo(30, 20);
-    lifeField.moveTo(10, 20);
-    lifeField.lineTo(100, 20);
-    lifeField.moveTo(90, 20);
-    lifeField.lineTo(90, 75);
-    lifeField.lineWidth = 2;
-    lifeField.stroke();
-}  lifeField.clearRect(0, 0, canvas.width, canvas.height);
-function  twoLife() {
-    lifeField.beginPath();
-    lifeField.clearRect(70, 45, 40, 40)
-    lifeField.arc(90, 60, 15, 300, 360, false);
-    lifeField.lineWidth = 2;
-    lifeField.stroke();
+function oneLife() {
+  lifeField.beginPath();
+  lifeField.moveTo(100, 240);
+  lifeField.lineTo(280, 240);
+  lifeField.moveTo(130, 240);
+  lifeField.lineTo(130, 30);
+  lifeField.moveTo(100, 30);
+  lifeField.lineTo(230, 30);
+  lifeField.moveTo(210, 30);
+  lifeField.lineTo(210, 110);
+  lifeField.lineWidth = 2;
+  lifeField.stroke();
+}
+function twoLife() {
+  lifeField.beginPath();
+  lifeField.clearRect(190, 65, 40, 45);
+  lifeField.arc(210, 90, 25, 300, 360, false);
+  lifeField.moveTo(197, 83); //левый глаз
+  lifeField.arc(197, 83, 5, 300, 360, false);
+  lifeField.moveTo(222, 83); // правый глаз
+  lifeField.arc(222, 83, 5, 300, 360, false);
+  lifeField.moveTo(210, 98); //рот
+  lifeField.arc(210, 102, 5, 300, 360, false);
+  lifeField.lineWidth = 2;
+  lifeField.stroke();
 }
 function threeLife() {
-    lifeField.beginPath();
-    lifeField.moveTo(90, 75);
-    lifeField.lineTo(90, 130);
-    lifeField.lineWidth = 2; 
-    lifeField.stroke();
+  lifeField.beginPath();
+  lifeField.moveTo(210, 115);
+  lifeField.lineTo(210, 180);
+  lifeField.lineWidth = 2;
+  lifeField.stroke();
 }
 function fourLife() {
-    lifeField.beginPath();
-    lifeField.moveTo(90, 85);
-    lifeField.lineTo(70, 110);
-    lifeField.lineWidth = 2;
-    lifeField.stroke();
+  lifeField.beginPath();
+  lifeField.moveTo(210, 125);
+  lifeField.lineTo(170, 155);
+  lifeField.lineWidth = 2;
+  lifeField.stroke();
 }
 function fiveLife() {
-    lifeField.beginPath();
-    lifeField.moveTo(90, 85);
-    lifeField.lineTo(110, 110);
-    lifeField.lineWidth = 2;
-    lifeField.stroke();
+  lifeField.beginPath();
+  lifeField.moveTo(210, 125);
+  lifeField.lineTo(250, 155);
+  lifeField.lineWidth = 2;
+  lifeField.stroke();
 }
 function sixLife() {
-    lifeField.beginPath();
-    lifeField.moveTo(90, 130);
-    lifeField.lineTo(70, 160);
-    lifeField.lineWidth = 2;
-    lifeField.stroke();
+  lifeField.beginPath();
+  lifeField.moveTo(210, 180);
+  lifeField.lineTo(185, 220);
+  lifeField.lineWidth = 2;
+  lifeField.stroke();
 }
 function sevenLife() {
-    lifeField.beginPath();
-    lifeField.moveTo(90, 130);
-    lifeField.lineTo(110, 160);
-    lifeField.lineWidth = 2; 
-    lifeField.stroke();
+  lifeField.beginPath();
+  lifeField.clearRect(190, 65, 40, 45);
+  lifeField.arc(210, 90, 25, 300, 360, false);
+  lifeField.moveTo(210, 98); //рот
+  lifeField.arc(210, 102, 5, 300, 360, false);
+  lifeField.moveTo(210, 180); //нога
+  lifeField.lineTo(235, 220);
+  lifeField.moveTo(195, 79); //глаз левый
+  lifeField.lineTo(205, 86);
+  lifeField.moveTo(205, 79);
+  lifeField.lineTo(195, 86);
+  lifeField.moveTo(215, 79); //глаз левый
+  lifeField.lineTo(225, 86);
+  lifeField.moveTo(215, 86);
+  lifeField.lineTo(225, 79);
+  lifeField.lineWidth = 2;
+  lifeField.stroke();
 }
 //массив количества жизней
 let chanceLife = [sevenLife, sixLife, fiveLife, fourLife, threeLife, twoLife, oneLife];
-
-
-
-
 
 // выбор случайного слова
 /**
@@ -129,7 +142,7 @@ function checkLetter() {
 
 /**
  * процесс игры. проверка наличия буквы, отгаданной буквы и конец игры
- * @param {Text} meaning 
+ * @param {Text} meaning
  */
 function gameProcess(meaning) {
   if (randomWord.includes(meaning) == false && attempts >= 0 && answer.includes("_") == true) {
@@ -146,8 +159,8 @@ function gameProcess(meaning) {
       answer[j] = meaning;
       remainingLetters--;
       hiddenWordElem.innerHTML = answer.join(" ");
-      gameInfoElem.innerHTML = `Поздравляем! Такая буква есть. Следующая буква?.`
+      gameInfoElem.innerHTML = `Поздравляем! Такая буква есть. Следующая буква?.`;
       console.log("Буква найдена", answer);
+    }
   }
-}
 }
