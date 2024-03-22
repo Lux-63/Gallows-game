@@ -5,13 +5,54 @@ let wordsArray = ["программа", "макака", "прекрасный", 
 let lifeField = document.querySelector(".canvas").getContext("2d");
 
 const gameInfoElem = document.querySelector(".information");
-const hiddenWordElem = document.querySelector(".progress");
+const hiddenWordElem = document.querySelector(".answer");
 const topWindowElem = document.querySelector(".frame");
-const enteredValueElem = document.querySelector(".box-2");
+const enteredValueElem = document.querySelector(".input");
 const resetGameElem = document.querySelector(".reset");
 const stopGameAlElem = document.querySelector(".end");
 
-let attempts = 6;
+//проверка буковочки
+let letterButtonId =""
+//объект айди
+let buttonIdObj = {
+  "а": 0,
+  "б": 1,
+  "в": 2,
+  "г": 3,
+  "д": 4,
+  "е": 5,
+  "ё": 6,
+  "ж": 7,
+  "з": 8,
+  "и": 9,
+  "й": 10,
+  "к": 11,
+  "л": 12,
+  "м": 13,
+  "н": 14,
+  "о": 15,
+  "п": 16,
+  "р": 17,
+  "с": 18,
+  "т": 19,
+  "у": 20,
+  "ф": 21,
+  "х": 22,
+  "ц": 23,
+  "ч": 24,
+  "ш": 25,
+  "щ": 26,
+  "ъ": 27,
+  "ы": 28,
+  "ь": 29,
+  "э": 30,
+  "ю": 31,
+  "я" : 32,
+}
+
+
+let buttonId = 0;
+let attempts = 7;
 let answer = [];
 let randomWord = "";
 let remainingLetters = 0;
@@ -105,7 +146,7 @@ let chanceLife = [sevenLife, sixLife, fiveLife, fourLife, threeLife, twoLife, on
  */
 function generationWord() {
   answer = [];
-  attempts = 6;
+  attempts = 7;
   randomWord = wordsArray[Math.floor(Math.random() * wordsArray.length)];
   for (let i = 0; randomWord.length > i; i++) {
     answer[i] = "_";
@@ -114,26 +155,20 @@ function generationWord() {
   hiddenWordElem.innerHTML = answer.join(" ");
   remainingLetters = randomWord.length;
   console.log(randomWord, remainingLetters);
-  gameInfoElem.innerHTML = 'Угадайте букву или нажмите ""Начать заново что бы сменить слово.';
+  gameInfoElem.innerHTML = 'Угадайте букву или нажмите "Начать" заново что бы сменить слово.';
 }
 /**
  * вытягивание значения. проверка на количесвто букв и жизней
  */
 function checkLetter() {
   const n = enteredValueElem.value.toLowerCase();
+  buttonId = buttonIdObj[n];
   enteredValueElem.value = "";
   enteredValueElem.focus();
   console.log(enteredValueElem.value.toLowerCase());
   if (n.length !== 1) {
     gameInfoElem.innerHTML = "Пожалуйста, введите одну букву.";
     console.log("введено меньше или больше одной буквы");
-  } else if (answer.includes("_") == false) {
-    gameInfoElem.innerHTML = `Хорошо! ${nikName} Было загадано слово "${randomWord}"`;
-    console.log("Победа");
-  } else if (attempts == 0) {
-    gameInfoElem.innerHTML = `${nikName} Вы проиграли! Было загадано слово "${randomWord}"`;
-    chanceLife[attempts]();
-    console.log("Проигрыш");
   } else {
     gameInfoElem.innerHTML = 'Угадайте букву или нажмите "Начать заново что бы сменить слово.';
     gameProcess(n);
@@ -145,11 +180,17 @@ function checkLetter() {
  * @param {Text} meaning
  */
 function gameProcess(meaning) {
-  if (randomWord.includes(meaning) == false && attempts >= 0 && answer.includes("_") == true) {
-    gameInfoElem.innerHTML = `такой буквы нету. У вас осталось попыток: "${attempts}"`;
-    chanceLife[attempts]();
+  letterButtonId = meaning;
+  if (randomWord.includes(meaning) == false && attempts > 0 && answer.includes("_") == true) {
+    gameInfoElem.innerHTML = `такой буквы нету. У вас осталось попыток: "${attempts -1}"`;
+    document.querySelectorAll(".letter")[buttonId].style.cssText=`background-color: red;`
+    chanceLife[attempts -1]();
     attempts--;
     console.log("минус жизнь", attempts);
+  } if (attempts == 0) {
+    gameInfoElem.innerHTML = `${nikName} Вы проиграли! Было загадано слово "${randomWord}"`;
+    chanceLife[attempts]();
+    console.log("Проигрыш");
   }
   for (let j = 0; j < randomWord.length; j++) {
     if (answer[j] == meaning) {
@@ -160,7 +201,11 @@ function gameProcess(meaning) {
       remainingLetters--;
       hiddenWordElem.innerHTML = answer.join(" ");
       gameInfoElem.innerHTML = `Поздравляем! Такая буква есть. Следующая буква?.`;
-      console.log("Буква найдена", answer);
+      document.querySelectorAll(".letter")[buttonId].style.cssText=`background-color: green;`
+      if (answer.includes("_") == false) {
+        gameInfoElem.innerHTML = `Хорошо! ${nikName} Было загадано слово "${randomWord}"`;
+      }
+      console.log("Буква найдена", answer, "Победа");
     }
   }
 }
