@@ -11,74 +11,64 @@
     <link rel="stylesheet" href="gallows.css" />
   </head>
   <body class="main-container">
-      <div id="container-1" class="container-1">
-        <div class="line">
-          <button class="letter" onclick="buttonId=0, gameProcess('а')">А</button>
-          <button class="letter" onclick="buttonId=1, gameProcess('б')">Б</button>
-          <button class="letter" onclick="buttonId=2, gameProcess('в')">В</button>
-          <button class="letter" onclick="buttonId=3, gameProcess('г')">Г</button>
-          <button class="letter" onclick="buttonId=4, gameProcess('д')">Д</button>
-        </div>
-        <div class="line">
-          <button class="letter" onclick="buttonId=5, gameProcess('е')">Е</button>
-          <button class="letter" onclick="buttonId=6, gameProcess('ё')">Ё</button>
-          <button class="letter" onclick="buttonId=7, gameProcess('ж')">Ж</button>
-          <button class="letter" onclick="buttonId=8, gameProcess('з')">З</button>
-          <button class="letter" onclick="buttonId=9, gameProcess('и')">И</button>
-        </div>
-        <div class="line">
-          <button class="letter" onclick="buttonId=10, gameProcess('й')">Й</button>
-          <button class="letter" onclick="buttonId=11, gameProcess('к')">К</button>
-          <button class="letter" onclick="buttonId=12, gameProcess('л')">Л</button>
-          <button class="letter" onclick="buttonId=13, gameProcess('м')">М</button>
-          <button class="letter" onclick="buttonId=14, gameProcess('н')">Н</button>
-        </div>
-        <div class="line">
-          <button class="letter" onclick="buttonId=15, gameProcess('о')">О</button>
-          <button class="letter" onclick="buttonId=16, gameProcess('п')">П</button>
-          <button class="letter" onclick="buttonId=17, gameProcess('р')">Р</button>
-          <button class="letter" onclick="buttonId=18, gameProcess('с')">С</button>
-          <button class="letter" onclick="buttonId=19, gameProcess('т')">Т</button>
-        </div>
-        <div class="line">
-          <button class="letter" onclick="buttonId=20, gameProcess('у')">У</button>
-          <button class="letter" onclick="buttonId=21, gameProcess('ф')">Ф</button>
-          <button class="letter" onclick="buttonId=22, gameProcess('х')">Х</button>
-          <button class="letter" onclick="buttonId=23, gameProcess('ц')">Ц</button>
-          <button class="letter" onclick="buttonId=24, gameProcess('ч')">Ч</button>
-        </div>
-        <div class="line">
-          <button class="letter" onclick="buttonId=25, gameProcess('ш')">Ш</button>
-          <button class="letter" onclick="buttonId=26, gameProcess('щ')">Щ</button>
-          <button class="letter" onclick="buttonId=27, gameProcess('ъ')">Ъ</button>
-          <button class="letter" onclick="buttonId=28, gameProcess('ы')">Ы</button>
-          <button class="letter" onclick="buttonId=29, gameProcess('ь')">Ь</button>
-        </div>
-        <div class="line">
-          <button class="letter" onclick="buttonId=30, gameProcess('э')">Э</button>
-          <button class="letter" onclick="buttonId=31, gameProcess('ю')">Ю</button>
-          <button class="letter" onclick="buttonId=32, gameProcess('я')">Я</button>
-        </div>
-        <div class="line">
-          <input type="button" />Значения будут позже
-        </div>
-      </div>
       <div id="container-2" class="container-2">
         <div id="welcom" class="frame">
           <p>Добро пожаловать в игру "Виселица"! Пройдите в свободную петлю.</p>
         </div>
-        <div><canvas id="canvas" class="canvas"  height="250px" width="400px"></canvas></div>
+        <div>
+          <button id="reset" class="reset" onclick="generationWord()">Начать заново</button>
+        </div>
+        <div><canvas id="canvas" class="canvas"  height="250px" width="300px"></canvas></div>
         <div id="information" class="information"></div>
-        <div id="progress" class="progress">
-          <div>
-            <button id="check" class="check" onclick="checkLetter()">Ваш ответ?</button>
-            <div><input id="input" class="input" type="text" />Напишите 1 букву</div>
-            <button id="reset" class="reset" onclick="generationWord()">Начать заново</button>
+          <div id="answer" class="answer">
+            <button>Hallo</button>
+          </div>
+        
+
+            <div class="line">
+              <button class="letter" data-index="а" onclick="buttonId=0; gameProcess('а')">А</button>
+              <button class="letter" data-index="б" onclick="buttonId=1; gameProcess('б')">Б</button>
+              <button class="letter" data-index="в" onclick="buttonId=2; gameProcess('в')">В</button>
+              <button class="letter" data-index="г" onclick="buttonId=3; gameProcess('г')">Г</button>
+              <button class="letter" data-index="д" onclick="buttonId=4; gameProcess('д')">Д</button>
+              <button class="letter" data-index="е" onclick="buttonId=5; gameProcess('е')">Е</button>
+              <button class="letter" data-index="ё" onclick="buttonId=6; gameProcess('ё')">Ё</button>
+              <button class="letter" data-index="ж" onclick="buttonId=7; gameProcess('ж')">Ж</button>
+              <button class="letter" data-index="з" onclick="buttonId=8; gameProcess('з')">З</button>
+              <button class="letter" data-index="и" onclick="buttonId=9; gameProcess('и')">И</button>
+              <button class="letter" data-index="й" onclick="buttonId=10; gameProcess('й')">Й</button>
+            </div>
+            <div class="line">
+              <button class="letter" data-index="к" onclick="buttonId=11; gameProcess('к')">К</button>
+              <button class="letter" data-index="л" onclick="buttonId=12; gameProcess('л')">Л</button>
+              <button class="letter" data-index="м" onclick="buttonId=13; gameProcess('м')">М</button>
+              <button class="letter" data-index="н" onclick="buttonId=14; gameProcess('н')">Н</button>
+              <button class="letter" data-index="о" onclick="buttonId=15; gameProcess('о')">О</button>
+              <button class="letter" data-index="п" onclick="buttonId=16; gameProcess('п')">П</button>
+              <button class="letter" data-index="р" onclick="buttonId=17; gameProcess('р')">Р</button>
+              <button class="letter" data-index="с" onclick="buttonId=18; gameProcess('с')">С</button>
+              <button class="letter" data-index="т" onclick="buttonId=19; gameProcess('т')">Т</button>
+              <button class="letter" data-index="у" onclick="buttonId=20; gameProcess('у')">У</button>
+              <button class="letter" data-index="ф" onclick="buttonId=21; gameProcess('ф')">Ф</button>
+            </div>
+            <div class="line">
+              <button class="letter" data-index="х" onclick="buttonId=22; gameProcess('х')">Х</button>
+              <button class="letter" data-index="ц" onclick="buttonId=23; gameProcess('ц')">Ц</button>
+              <button class="letter" data-index="ч" onclick="buttonId=24; gameProcess('ч')">Ч</button>
+              <button class="letter" data-index="ш" onclick="buttonId=25; gameProcess('ш')">Ш</button>
+              <button class="letter" data-index="щ" onclick="buttonId=26; gameProcess('щ')">Щ</button>
+              <button class="letter" data-index="ъ" onclick="buttonId=27; gameProcess('ъ')">Ъ</button>
+              <button class="letter" data-index="ы" onclick="buttonId=28; gameProcess('ы')">Ы</button>
+              <button class="letter" data-index="ь" onclick="buttonId=29; gameProcess('ь')">Ь</button>
+              <button class="letter" data-index="э" onclick="buttonId=30; gameProcess('э')">Э</button>
+              <button class="letter" data-index="ю" onclick="buttonId=31; gameProcess('ю')">Ю</button>
+              <button class="letter" data-index="я" onclick="buttonId=32; gameProcess('я')">Я</button>
+            </div>
+            <div class="line">
+
+            </div>
           </div>
         </div>
-        <div id="answer" class="answer"></div>
-    </div>
-
     <script src="script_gallows.js"></script>
   </body>
 </html>

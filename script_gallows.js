@@ -3,19 +3,25 @@ const nikName = prompt('Добро пожаловать в игру "Висел�
 let wordsArray = ["программа", "макака", "прекрасный", "оладушек", "чебурек"];
 //мыссив функций canvas
 let lifeField = document.querySelector(".canvas").getContext("2d");
-
+//доступ к элементам
 const gameInfoElem = document.querySelector(".information");
 const hiddenWordElem = document.querySelector(".answer");
 const topWindowElem = document.querySelector(".frame");
 const enteredValueElem = document.querySelector(".input");
 const resetGameElem = document.querySelector(".reset");
 const stopGameAlElem = document.querySelector(".end");
+const meaningButton = document.querySelectorAll(".letter");
+//создание див загаданого слова
+
+const displayHiddenWord = document.createElement("div")
+//displayHiddenWord.className = "answer-Word"
+
 
 //проверка буковочки
 let letterButtonId =""
 //объект айди
 let buttonIdObj = {
-  "а": 0,
+  "а": 0, 
   "б": 1,
   "в": 2,
   "г": 3,
@@ -57,7 +63,7 @@ let answer = [];
 let randomWord = "";
 let remainingLetters = 0;
 
-topWindowElem.innerHTML = `<p>Привет, <b>${nikName}.</b> <br>Начнем игру!</p> `;
+topWindowElem.innerHTML = `<p>Привет, <b>${nikName}.</b> Начнем игру!</p> `;
 generationWord();
 console.log(`Привет, ${nikName}`, randomWord);
 
@@ -142,7 +148,7 @@ let chanceLife = [sevenLife, sixLife, fiveLife, fourLife, threeLife, twoLife, on
 
 // выбор случайного слова
 /**
- * генерация слова, замена букв на символы
+ * генерация слова, замена букв на символы, сброс всех значений при рестарте игры
  */
 function generationWord() {
   answer = [];
@@ -151,7 +157,12 @@ function generationWord() {
   for (let i = 0; randomWord.length > i; i++) {
     answer[i] = "_";
   }
+  //сброс стилей кнопок алфавита
+  for(i=0; meaningButton.length > i; i++) {
+    meaningButton[i].style=".letter"
+  }
   lifeField.clearRect(0, 0, canvas.width, canvas.height);
+
   hiddenWordElem.innerHTML = answer.join(" ");
   remainingLetters = randomWord.length;
   console.log(randomWord, remainingLetters);
@@ -180,9 +191,12 @@ function checkLetter() {
  * @param {Text} meaning
  */
 function gameProcess(meaning) {
+  //console.log(event, "евента значение") function gameProcess(event, meaning) {
+
   letterButtonId = meaning;
   if (randomWord.includes(meaning) == false && attempts > 0 && answer.includes("_") == true) {
     gameInfoElem.innerHTML = `такой буквы нету. У вас осталось попыток: "${attempts -1}"`;
+    //находим кнопку по ID
     document.querySelectorAll(".letter")[buttonId].style.cssText=`background-color: red;`
     chanceLife[attempts -1]();
     attempts--;
@@ -208,4 +222,6 @@ function gameProcess(meaning) {
       console.log("Буква найдена", answer, "Победа");
     }
   }
+
 }
+

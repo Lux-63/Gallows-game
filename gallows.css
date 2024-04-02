@@ -9,46 +9,12 @@ html, body {
   align-items: stretch;
   background-color: rgb(255, 129, 249);
 }
-.container-1 {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: stretch;
-  border: 2px solid;
-
-  margin-right: 5px;
-  padding: 2px;
-  background-color: rgb(231, 96, 118);
-}
-.line {
-  display: flex;
-  margin: 0px;
-  flex-grow: 1;
-  flex-shrink: 1;
-  justify-content: start;
-  align-items: stretch;
-  background-color: rgb(0, 125, 184);
-}
-.letter {
-  display: flex;
-  flex-wrap: nowrap;
-  border-width: 2px solid;
-  border-right: 2px solid;
-  margin: 0px;
-  width: 70px;
-  height: 70px;
-  flex-grow: 1;
-  flex-shrink: 1;
-  justify-content: center;
-}
-
 
 .container-2 {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
   align-items: stretch;
   border: 2px solid;
   margin-left: 5px;
@@ -58,17 +24,19 @@ html, body {
 
 .frame {
   display: flex;
+  align-items: center;
   justify-content: center;
+  flex-wrap: nowrap;
+  width: 600px;
   margin: auto;
   margin-top: 10px;
   margin-bottom: 10px;
-
   text-align: center;
   background-color: orange;
 }
 .canvas {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   margin: auto;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -80,26 +48,14 @@ html, body {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  width: 400px;
+  width: 600px;
+  height: 50px;
   margin: auto;
-  margin-top: 10px;
-  margin-bottom: 10px;
   border: 2px solid black;
   text-align: center;
   background-color: green;
 }
-.progress {
-  display: flex;
-  justify-content: center;
-  width: 400px;
-  margin: auto;
-  margin-top: 10px;
-  margin-bottom: 10px;
 
-  border: 2px solid black;
-  text-align: center;
-  background-color: aqua;
-}
 .answer {
   display: flex;
   flex-direction: row;
@@ -112,6 +68,33 @@ html, body {
   font-size: 30px;
   background-color: purple;
 }
+
+.answer-word {
+  display: flex;
+  margin: 2px;
+  width: 30px;
+  height: 30px;
+  background-color: rgb(32, 250, 3);
+}
+.line {
+  display: flex;
+  flex-wrap: nowrap;
+  margin: 0px;
+  justify-content: space-evenly;
+  align-items: stretch;
+  background-color: rgb(0, 125, 184);
+}
+.letter {
+  display: flex;
+  flex-wrap: wrap;
+  width: 50px;
+  height: 50px;
+  border-width: 2px solid;
+  border-right: 2px solid;
+  margin: 2px;
+  align-items: center;
+}
+
 
 .letter-wrong {
   background-color: red;
