@@ -1,9 +1,63 @@
 const nikName = prompt('Добро пожаловать в игру "Виселица" как вас зовут?');
-//массив слов
+//массивы слов по категориям
+let easyAnimalsWord = ["лиса", "волк", "бобёр", "ёжик", "медведь", "олень", "заяц", "кролик", "корова", "лягушка", "кошка", "собака", "мышь"];
+let hardAnimalsWord = ["Игуана", "гиппопотам", "трясогузка", "леопард", "аллигатор", "горилла"];
+let easyEdibleWord = ["каша", "пицца", "арбуз", "лимон", "грибы", "хлеб", "тесто", "мясо", "салат", "рыба", "молоко"];
+let hardEdibleWord = ["сельдерей", "фейхоа", "картофель", "абрикос", "баклажан", "виноград", "йогурт", "конфета", "свинина", "говядина"];
+let easyInedibleWord = ["окно", "стена", "шкаф", "стол", "стул", "пакет", "мешок", "шарик", "очки", "машина"];
+let hardInedibleWord = ["гильотина", "наволочка", "автозаправка", "фортепиано", "антресоль", "домкрат", "электричка", "сноуборд", "программа"];
+let allArray = [];
 let wordsArray = ["программа", "макака", "прекрасный", "оладушек", "чебурек"];
+
+//сложность и категории
+let difficultyGame = "easy";
+let selectedCategory = easyAnimalsWord;
+
+/**
+ * выбор массива слов исходя из сложности и выбранной категории
+ * @param {string} select 
+ */
+function category(select) {
+  console.log(select)
+  if (difficultyGame == "easy" && select == "animals") {
+    selectedCategory = easyAnimalsWord;
+    generationWord()
+    console.log(selectedCategory, difficultyGame, select);
+  } else if (difficultyGame == "hard" && select == "animals") {
+    selectedCategory = hardAnimalsWord;
+    generationWord()
+    console.log(selectedCategory, difficultyGame, select);
+  } else if (difficultyGame == "easy" && select == "edible") {
+    selectedCategory = easyEdibleWord;
+    generationWord()
+    console.log(selectedCategory, difficultyGame, select);
+  } else if (difficultyGame == "hard" && select == "edible") {
+    selectedCategory = hardEdibleWord;
+    generationWord()
+    console.log(selectedCategory, difficultyGame, select);
+  } else if (difficultyGame == "easy" && select == "inedible") {
+    selectedCategory = easyInedibleWord;
+    generationWord()
+    console.log(selectedCategory, difficultyGame, select);
+  } else if (difficultyGame == "hard" && select == "inedible") {
+    selectedCategory = hardInedibleWord;
+    generationWord()
+    console.log(selectedCategory, difficultyGame, select);
+  } else if (difficultyGame == "easy" && select == "all") {
+    selectedCategory = allArray.concat(easyAnimalsWord, easyEdibleWord, easyInedibleWord)
+    generationWord()
+    console.log(selectedCategory, difficultyGame, select);
+  } else if (difficultyGame == "hard" && select == "all") {
+    selectedCategory = allArray.concat(hardAnimalsWord, hardEdibleWord, hardInedibleWord)
+    generationWord()
+    console.log(selectedCategory, difficultyGame, select);
+  }
+}
+
+WordsArray = ["программа", "макака", "прекрасный", "оладушек", "чебурек"];
 //мыссив функций canvas
 let lifeField = document.querySelector(".canvas").getContext("2d");
-//доступ к элементам
+//доступ к элементам в html
 const gameInfoElem = document.querySelector(".information");
 const hiddenWordElem = document.querySelector(".answer");
 const topWindowElem = document.querySelector(".frame");
@@ -11,61 +65,61 @@ const enteredValueElem = document.querySelector(".input");
 const resetGameElem = document.querySelector(".reset");
 const stopGameAlElem = document.querySelector(".end");
 const meaningButton = document.querySelectorAll(".letter");
-//создание див загаданого слова
 
+//создание див загаданого слова
 const displayHiddenWord = document.createElement("div")
 //displayHiddenWord.className = "answer-Word"
-
 
 //проверка буковочки
 let letterButtonId =""
 //объект айди
 let buttonIdObj = {
-  "а": 0, 
-  "б": 1,
-  "в": 2,
-  "г": 3,
-  "д": 4,
+  "ё": 0, 
+  "й": 1,
+  "ц": 2,
+  "у": 3,
+  "к": 4,
   "е": 5,
-  "ё": 6,
-  "ж": 7,
-  "з": 8,
-  "и": 9,
-  "й": 10,
-  "к": 11,
-  "л": 12,
-  "м": 13,
-  "н": 14,
-  "о": 15,
-  "п": 16,
-  "р": 17,
-  "с": 18,
-  "т": 19,
-  "у": 20,
-  "ф": 21,
-  "х": 22,
-  "ц": 23,
-  "ч": 24,
-  "ш": 25,
-  "щ": 26,
-  "ъ": 27,
-  "ы": 28,
-  "ь": 29,
-  "э": 30,
-  "ю": 31,
-  "я" : 32,
+  "н": 6,
+  "г": 7,
+  "ш": 8,
+  "щ": 9,
+  "з": 10,
+  "х": 11,
+  "ъ": 12,
+  "ф": 13,
+  "ы": 14,
+  "в": 15,
+  "а": 16,
+  "п": 17,
+  "р": 18,
+  "о": 19,
+  "л": 20,
+  "д": 21,
+  "ж": 22,
+  "э": 23,
+  "я": 24,
+  "ч": 25,
+  "с": 26,
+  "м": 27,
+  "и": 28,
+  "т": 29,
+  "ь": 30,
+  "б": 31,
+  "ю" : 32,
 }
 
 
 let buttonId = 0;
 let attempts = 7;
 let answer = [];
+let answerDiv = [];
 let randomWord = "";
 let remainingLetters = 0;
 
 topWindowElem.innerHTML = `<p>Привет, <b>${nikName}.</b> Начнем игру!</p> `;
 generationWord();
-console.log(`Привет, ${nikName}`, randomWord);
+console.log(`Привет, ${nikName}`);
 
 /**
  * функции Canvas
@@ -146,28 +200,44 @@ function sevenLife() {
 //массив количества жизней
 let chanceLife = [sevenLife, sixLife, fiveLife, fourLife, threeLife, twoLife, oneLife];
 
+
 // выбор случайного слова
 /**
  * генерация слова, замена букв на символы, сброс всех значений при рестарте игры
  */
 function generationWord() {
   answer = [];
+  answerDiv = [];
+  //убираем елементы div
+  for (i = 0; hiddenWordElem.childNodes.length >= 1; i++) {
+    hiddenWordElem.childNodes[0].remove();
+  }
+  //восстанавливаем жизни
   attempts = 7;
-  randomWord = wordsArray[Math.floor(Math.random() * wordsArray.length)];
-  for (let i = 0; randomWord.length > i; i++) {
-    answer[i] = "_";
+  //выбираем слово из массива по категории.
+  randomWord = selectedCategory[Math.floor(Math.random() * selectedCategory.length)];
+  for (let i = 0; randomWord.length> i; i++) {
+    let divElem = document.createElement('div');
+    divElem.className = "answer-word";
+    divElem.append(answer[i] = "-");
+    answerDiv.push(divElem)
+    answer[i] = "-";
   }
   //сброс стилей кнопок алфавита
-  for(i=0; meaningButton.length > i; i++) {
+  for(i=0; meaningButton.length> i; i++) {
     meaningButton[i].style=".letter"
   }
   lifeField.clearRect(0, 0, canvas.width, canvas.height);
 
-  hiddenWordElem.innerHTML = answer.join(" ");
+  hiddenWordElem.append(...answerDiv)
+  
+  //hiddenWordElem.innerHTML = answer.join(" ");
   remainingLetters = randomWord.length;
   console.log(randomWord, remainingLetters);
-  gameInfoElem.innerHTML = 'Угадайте букву или нажмите "Начать" заново что бы сменить слово.';
+  gameInfoElem.innerHTML = 'Угадайте букву или нажмите "Начать заново" что бы сменить слово.';
 }
+
+
 /**
  * вытягивание значения. проверка на количесвто букв и жизней
  */
@@ -181,7 +251,7 @@ function checkLetter() {
     gameInfoElem.innerHTML = "Пожалуйста, введите одну букву.";
     console.log("введено меньше или больше одной буквы");
   } else {
-    gameInfoElem.innerHTML = 'Угадайте букву или нажмите "Начать заново что бы сменить слово.';
+    gameInfoElem.innerHTML = 'Угадайте букву или нажмите "Начать заново" что бы сменить слово.';
     gameProcess(n);
   }
 }
@@ -194,7 +264,7 @@ function gameProcess(meaning) {
   //console.log(event, "евента значение") function gameProcess(event, meaning) {
 
   letterButtonId = meaning;
-  if (randomWord.includes(meaning) == false && attempts > 0 && answer.includes("_") == true) {
+  if (randomWord.includes(meaning) == false && attempts > 0 && answer.includes("-") == true) {
     gameInfoElem.innerHTML = `такой буквы нету. У вас осталось попыток: "${attempts -1}"`;
     //находим кнопку по ID
     document.querySelectorAll(".letter")[buttonId].style.cssText=`background-color: red;`
@@ -213,10 +283,10 @@ function gameProcess(meaning) {
     } else if (randomWord[j] === meaning) {
       answer[j] = meaning;
       remainingLetters--;
-      hiddenWordElem.innerHTML = answer.join(" ");
+      hiddenWordElem.childNodes[j].innerHTML = meaning.toUpperCase();
       gameInfoElem.innerHTML = `Поздравляем! Такая буква есть. Следующая буква?.`;
       document.querySelectorAll(".letter")[buttonId].style.cssText=`background-color: green;`
-      if (answer.includes("_") == false) {
+      if (answer.includes("-") == false) {
         gameInfoElem.innerHTML = `Хорошо! ${nikName} Было загадано слово "${randomWord}"`;
       }
       console.log("Буква найдена", answer, "Победа");
