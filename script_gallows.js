@@ -1,94 +1,37 @@
 const nikName = prompt('Добро пожаловать в игру "Виселица" как вас зовут?');
-//массивы слов по категориям и сложности
-let easyAnimalsWord = [
-  "лиса",
-  "волк",
-  "бобёр",
-  "ёжик",
-  "медведь",
-  "олень",
-  "заяц",
-  "кролик",
-  "корова",
-  "лягушка",
-  "кошка",
-  "собака",
-  "мышь",
-];
-let hardAnimalsWord = ["Игуана", "гиппопотам", "трясогузка", "леопард", "аллигатор", "горилла"];
-let easyEdibleWord = [
-  "каша",
-  "пицца",
-  "арбуз",
-  "лимон",
-  "грибы",
-  "хлеб",
-  "тесто",
-  "мясо",
-  "салат",
-  "рыба",
-  "молоко",
-];
-let hardEdibleWord = [
-  "сельдерей",
-  "фейхоа",
-  "картофель",
-  "абрикос",
-  "баклажан",
-  "виноград",
-  "йогурт",
-  "конфета",
-  "свинина",
-  "говядина",
-];
-let easyInedibleWord = [
-  "окно",
-  "стена",
-  "шкаф",
-  "стол",
-  "стул",
-  "пакет",
-  "мешок",
-  "шарик",
-  "очки",
-  "машина",
-];
-let hardInedibleWord = [
-  "гильотина",
-  "наволочка",
-  "автозаправка",
-  "фортепиано",
-  "антресоль",
-  "домкрат",
-  "электричка",
-  "сноуборд",
-  "программа",
-];
+
 let allArray = [];
+//let allArrayStart = allArray.concat(gameLevel["animal"]["difficultyGame"], gameLevel["edible"]["difficultyGame"] , gameLevel["inedible"]["difficultyGame"]);
 
 /**
  * выбор массива слов исходя из сложности и выбранной категории
  */
 const gameLevel = {
   animal: {
-    easy: () => easyAnimalsWord,
-    hard: () => hardAnimalsWord,
+    easy: ["лиса", "волк", "бобёр", "ёжик", "медведь", "олень", "заяц", "кролик", "корова", "лягушка", "кошка", "собака", "мышь",],
+    hard: ["Игуана", "гиппопотам", "трясогузка", "леопард", "аллигатор", "горилла"],
   },
   edible: {
-    easy: () => easyEdibleWord,
-    hard: () => hardEdibleWord,
+    easy: ["каша", "пицца", "арбуз", "лимон", "грибы", "хлеб", "тесто", "мясо", "салат", "рыба", "молоко",],
+    hard: ["сельдерей", "фейхоа", "картофель", "абрикос", "баклажан", "виноград", "йогурт", "конфета", "свинина", "говядина",],
   },
   inedible: {
-    easy: () => easyInedibleWord,
-    hard: () => hardInedibleWord,
+    easy: ["окно", "стена", "шкаф", "стол", "стул", "пакет", "мешок", "шарик", "очки", "машина",],
+    hard: ["гильотина", "наволочка", "автозаправка", "фортепиано", "антресоль", "домкрат", "электричка", "сноуборд", "программа",],
   },
   all: {
-    easy: () => allArray.concat(easyAnimalsWord, easyEdibleWord, easyInedibleWord),
-    hard: () => allArray.concat(hardAnimalsWord, hardEdibleWord, hardInedibleWord),
+    easy: allArray,
+    hard: () => allArray.concat(gameLevel["animal"]["easy"], gameLevel["edible"]["easy"] , gameLevel["inedible"]["easy"]),
   },
 };
 let difficultyGame = "easy";
 let selectedCategory = "animal";
+
+function a() {
+  allArray = allArray.concat(gameLevel["animal"]["easy"], gameLevel["edible"]["easy"] , gameLevel["inedible"]["easy"]);
+  return allArray;
+}
+
 
 //мыссив функций canvas
 let lifeField = document.querySelector(".canvas").getContext("2d");
@@ -251,9 +194,7 @@ function generationWord() {
   attempts = 7;
   //выбираем слово из массива по категории.
   randomWord =
-    gameLevel[selectedCategory][difficultyGame]()[
-      Math.floor(Math.random() * gameLevel[selectedCategory][difficultyGame]().length)
-    ];
+    gameLevel[selectedCategory][difficultyGame][Math.floor(Math.random() * gameLevel[selectedCategory][difficultyGame].length)];
 
   for (let i = 0; randomWord.length > i; i++) {
     let divElem = document.createElement("div");
