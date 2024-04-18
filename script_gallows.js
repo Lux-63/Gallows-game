@@ -1,37 +1,85 @@
 const nikName = prompt('Добро пожаловать в игру "Виселица" как вас зовут?');
 
-let allArray = [];
-//let allArrayStart = allArray.concat(gameLevel["animal"]["difficultyGame"], gameLevel["edible"]["difficultyGame"] , gameLevel["inedible"]["difficultyGame"]);
-
 /**
  * выбор массива слов исходя из сложности и выбранной категории
  */
 const gameLevel = {
   animal: {
-    easy: ["лиса", "волк", "бобёр", "ёжик", "медведь", "олень", "заяц", "кролик", "корова", "лягушка", "кошка", "собака", "мышь",],
+    easy: [
+      "лиса",
+      "волк",
+      "бобёр",
+      "ёжик",
+      "медведь",
+      "олень",
+      "заяц",
+      "кролик",
+      "корова",
+      "лягушка",
+      "кошка",
+      "собака",
+      "мышь",
+    ],
     hard: ["Игуана", "гиппопотам", "трясогузка", "леопард", "аллигатор", "горилла"],
   },
   edible: {
-    easy: ["каша", "пицца", "арбуз", "лимон", "грибы", "хлеб", "тесто", "мясо", "салат", "рыба", "молоко",],
-    hard: ["сельдерей", "фейхоа", "картофель", "абрикос", "баклажан", "виноград", "йогурт", "конфета", "свинина", "говядина",],
+    easy: [
+      "каша",
+      "пицца",
+      "арбуз",
+      "лимон",
+      "грибы",
+      "хлеб",
+      "тесто",
+      "мясо",
+      "салат",
+      "рыба",
+      "молоко",
+    ],
+    hard: [
+      "сельдерей",
+      "фейхоа",
+      "картофель",
+      "абрикос",
+      "баклажан",
+      "виноград",
+      "йогурт",
+      "конфета",
+      "свинина",
+      "говядина",
+    ],
   },
   inedible: {
-    easy: ["окно", "стена", "шкаф", "стол", "стул", "пакет", "мешок", "шарик", "очки", "машина",],
-    hard: ["гильотина", "наволочка", "автозаправка", "фортепиано", "антресоль", "домкрат", "электричка", "сноуборд", "программа",],
+    easy: ["окно", "стена", "шкаф", "стол", "стул", "пакет", "мешок", "шарик", "очки", "машина"],
+    hard: [
+      "гильотина",
+      "наволочка",
+      "автозаправка",
+      "фортепиано",
+      "антресоль",
+      "домкрат",
+      "электричка",
+      "сноуборд",
+      "программа",
+    ],
   },
   all: {
-    easy: allArray,
-    hard: () => allArray.concat(gameLevel["animal"]["easy"], gameLevel["edible"]["easy"] , gameLevel["inedible"]["easy"]),
+    easy: [],
+    hard: [],
   },
 };
+//переменные категории и сложности
 let difficultyGame = "easy";
 let selectedCategory = "animal";
-
-function a() {
-  allArray = allArray.concat(gameLevel["animal"]["easy"], gameLevel["edible"]["easy"] , gameLevel["inedible"]["easy"]);
-  return allArray;
+/**
+ * массив всех категорий по сложности
+ */
+for (let category in gameLevel) {
+  if (category != "all") {
+    gameLevel["all"]["easy"] = gameLevel["all"]["easy"].concat(gameLevel[category]["easy"]);
+    gameLevel["all"]["hard"] = gameLevel["all"]["hard"].concat(gameLevel[category]["hard"]);
+  }
 }
-
 
 //мыссив функций canvas
 let lifeField = document.querySelector(".canvas").getContext("2d");
@@ -99,83 +147,190 @@ generationWord();
 console.log(`Привет, ${nikName}`);
 
 /**
- * функции Canvas
+ * количество жизней и отрисовка игры в canvas
  */
+//площадка
 function oneLife() {
   lifeField.beginPath();
-  lifeField.moveTo(100, 240);
-  lifeField.lineTo(280, 240);
-  lifeField.moveTo(130, 240);
-  lifeField.lineTo(130, 30);
-  lifeField.moveTo(100, 30);
-  lifeField.lineTo(230, 30);
-  lifeField.moveTo(210, 30);
-  lifeField.lineTo(210, 110);
+  lifeField.moveTo(50, 240);
+  lifeField.lineTo(230, 240);
   lifeField.lineWidth = 2;
   lifeField.stroke();
 }
+//столб
 function twoLife() {
   lifeField.beginPath();
-  lifeField.clearRect(190, 65, 40, 45);
-  lifeField.arc(210, 90, 25, 300, 360, false);
-  lifeField.moveTo(197, 83); //левый глаз
-  lifeField.arc(197, 83, 5, 300, 360, false);
-  lifeField.moveTo(222, 83); // правый глаз
-  lifeField.arc(222, 83, 5, 300, 360, false);
-  lifeField.moveTo(210, 98); //рот
-  lifeField.arc(210, 102, 5, 300, 360, false);
+  lifeField.moveTo(100, 240);
+  lifeField.lineTo(100, 30);
   lifeField.lineWidth = 2;
   lifeField.stroke();
 }
+//поперечина
 function threeLife() {
   lifeField.beginPath();
-  lifeField.moveTo(210, 115);
-  lifeField.lineTo(210, 180);
+  lifeField.moveTo(60, 30);
+  lifeField.lineTo(180, 30);
   lifeField.lineWidth = 2;
   lifeField.stroke();
 }
+//веревка
 function fourLife() {
   lifeField.beginPath();
-  lifeField.moveTo(210, 125);
-  lifeField.lineTo(170, 155);
+  lifeField.moveTo(160, 31); // веревка
+  lifeField.lineTo(160, 80);
   lifeField.lineWidth = 2;
   lifeField.stroke();
 }
+//голова
 function fiveLife() {
   lifeField.beginPath();
-  lifeField.moveTo(210, 125);
-  lifeField.lineTo(250, 155);
+  lifeField.clearRect(140, 65, 40, 45);
+  lifeField.arc(160, 90, 25, 300, 360, false);
+  //левый глаз
+  lifeField.moveTo(147, 83);
+  lifeField.arc(147, 83, 5, 300, 360, false);
+  // правый глаз
+  lifeField.moveTo(172, 83);
+  lifeField.arc(172, 83, 5, 300, 360, false);
+  //рот
+  lifeField.moveTo(160, 98);
+  lifeField.arc(160, 102, 5, 300, 360, false);
   lifeField.lineWidth = 2;
   lifeField.stroke();
 }
+//тело
 function sixLife() {
   lifeField.beginPath();
-  lifeField.moveTo(210, 180);
-  lifeField.lineTo(185, 220);
+  lifeField.moveTo(160, 115);
+  lifeField.lineTo(160, 180);
   lifeField.lineWidth = 2;
   lifeField.stroke();
 }
+//левая рука
 function sevenLife() {
   lifeField.beginPath();
-  lifeField.clearRect(190, 65, 40, 45);
-  lifeField.arc(210, 90, 25, 300, 360, false);
-  lifeField.moveTo(210, 98); //рот
-  lifeField.arc(210, 102, 5, 300, 360, false);
-  lifeField.moveTo(210, 180); //нога
-  lifeField.lineTo(235, 220);
-  lifeField.moveTo(195, 79); //глаз левый
-  lifeField.lineTo(205, 86);
-  lifeField.moveTo(205, 79);
-  lifeField.lineTo(195, 86);
-  lifeField.moveTo(215, 79); //глаз левый
-  lifeField.lineTo(225, 86);
-  lifeField.moveTo(215, 86);
-  lifeField.lineTo(225, 79);
+  lifeField.moveTo(160, 130);
+  lifeField.lineTo(120, 155);
+  lifeField.lineWidth = 2;
+  lifeField.stroke();
+}
+//правая рука
+function eightLife() {
+  lifeField.beginPath();
+  lifeField.moveTo(160, 130);
+  lifeField.lineTo(200, 155);
+  lifeField.lineWidth = 2;
+  lifeField.stroke();
+}
+//левая нога
+function nineLife() {
+  lifeField.beginPath();
+  lifeField.moveTo(160, 180);
+  lifeField.lineTo(135, 220);
+  lifeField.lineWidth = 2;
+  lifeField.stroke();
+}
+function tenLife() {
+  lifeField.beginPath();
+  //очистка поля
+  lifeField.clearRect(115, 31, 90, 190);
+  //веревка
+  lifeField.moveTo(160, 30);
+  lifeField.lineTo(160, 75);
+  //голова
+  lifeField.arc(160, 100, 25, 300, 360, false);
+  //глаз лев
+  lifeField.moveTo(145, 89);
+  lifeField.lineTo(155, 96);
+  lifeField.moveTo(155, 89);
+  lifeField.lineTo(145, 96);
+  //глаз прав
+  lifeField.moveTo(165, 89);
+  lifeField.lineTo(175, 96);
+  lifeField.moveTo(165, 96);
+  lifeField.lineTo(175, 89);
+  //рот
+  lifeField.moveTo(160, 108); //рот
+  lifeField.arc(160, 112, 5, 300, 360, false);
+  //тело
+  lifeField.moveTo(160, 125);
+  lifeField.lineTo(160, 180);
+  //левая рука
+  lifeField.moveTo(160, 140);
+  lifeField.lineTo(130, 180);
+  //прававя рука
+  lifeField.moveTo(160, 140);
+  lifeField.lineTo(190, 180);
+  //л.нога
+  lifeField.moveTo(160, 180);
+  lifeField.lineTo(145, 225);
+  //пр нога
+  lifeField.moveTo(160, 180);
+  lifeField.lineTo(175, 225);
+  lifeField.lineWidth = 2;
+  lifeField.stroke();
+}
+/**
+ * в случае победы, человек радуется спасению
+ */
+function playerWin() {
+  lifeField.beginPath();
+  //очистка поля
+  lifeField.clearRect(115, 31, 90, 208);
+  //веревка
+  lifeField.moveTo(160, 31);
+  lifeField.lineTo(160, 80);
+  //глаз лев
+  lifeField.moveTo(148.5, 111);
+  lifeField.arc(148.5, 115, 5, 300, 360, false);
+  lifeField.fillStyle = "white";
+  lifeField.fill();
+  lifeField.moveTo(148.5, 115);
+  lifeField.arc(148.5, 115, 0.05, 300, 360, false);
+  //глаз прав
+  lifeField.moveTo(170.5, 111);
+  lifeField.arc(170.5, 115, 5, 300, 360, false, "white");
+  lifeField.fill();
+  lifeField.moveTo(170.5, 115);
+  lifeField.arc(170.5, 115, 0.05, 300, 360, false);
+  //голова
+  lifeField.moveTo(160, 96);
+  lifeField.clearRect(140, 65, 40, 45);
+  lifeField.arc(160, 120, 25, 300, 360, false);
+  //рот
+  lifeField.moveTo(175, 132); //рот
+  lifeField.arc(160, 119, 20, 1, 2.4, false);
+  //тело
+  lifeField.moveTo(160, 145);
+  lifeField.lineTo(160, 200);
+  //левая рука
+  lifeField.moveTo(160, 160);
+  lifeField.lineTo(120, 135);
+  //прававя рука
+  lifeField.moveTo(160, 160);
+  lifeField.lineTo(200, 135);
+  //л.нога
+  lifeField.moveTo(160, 200);
+  lifeField.lineTo(135, 240);
+  //пр нога
+  lifeField.moveTo(160, 200);
+  lifeField.lineTo(185, 240);
   lifeField.lineWidth = 2;
   lifeField.stroke();
 }
 //массив количества жизней
-let chanceLife = [sevenLife, sixLife, fiveLife, fourLife, threeLife, twoLife, oneLife];
+let chanceLife = [
+  tenLife,
+  nineLife,
+  eightLife,
+  sevenLife,
+  sixLife,
+  fiveLife,
+  fourLife,
+  threeLife,
+  twoLife,
+  oneLife,
+];
 
 // выбор случайного слова
 /**
@@ -191,14 +346,21 @@ function generationWord() {
   }
 
   //восстанавливаем жизни
-  attempts = 7;
+  if (difficultyGame == "hard") {
+    attempts = 10;
+  } else {
+    attempts = 7;
+  }
+
   //выбираем слово из массива по категории.
   randomWord =
-    gameLevel[selectedCategory][difficultyGame][Math.floor(Math.random() * gameLevel[selectedCategory][difficultyGame].length)];
+    gameLevel[selectedCategory][difficultyGame][
+      Math.floor(Math.random() * gameLevel[selectedCategory][difficultyGame].length)
+    ];
 
   for (let i = 0; randomWord.length > i; i++) {
     let divElem = document.createElement("div");
-    divElem.className = "answer-word"; //уточнить что за див в переменной
+    divElem.className = "answer-word";
     divElem.append((answer[i] = "-"));
     answerDiv.push(divElem);
     answer[i] = "-";
@@ -252,10 +414,17 @@ function gameProcess(meaning) {
     document.querySelectorAll(".letter")[buttonId].style.cssText = `background-color: red;`;
 
     // отнимаем жизнь
-    chanceLife[attempts - 1]();
-    attempts--;
+    if (difficultyGame == "easy" && attempts == 7) {
+      chanceLife[9]();
+      chanceLife[8]();
+      chanceLife[7]();
+      attempts--;
+    } else {
+      chanceLife[attempts - 1]();
+      attempts--;
 
-    console.log("минус жизнь", attempts);
+      console.log("минус жизнь", attempts);
+    }
   }
   //game over
   if (attempts == 0) {
@@ -266,10 +435,7 @@ function gameProcess(meaning) {
   }
 
   for (let j = 0; j < randomWord.length; j++) {
-    if (answer.includes("-") == false) {
-      gameInfoElem.innerHTML = `Хорошо! ${nikName} Было загадано слово "${randomWord}"`;
-      return;
-    } else if (answer[j] == meaning) {
+    if (answer[j] == meaning) {
       gameInfoElem.innerHTML = `${nikName} вы уже угадали эту букву!`;
       console.log("такая буква уже есть");
     } else if (randomWord[j] === meaning) {
@@ -286,9 +452,18 @@ function gameProcess(meaning) {
       console.log("Буква найдена", answer, "Победа");
     }
   }
+  if (answer.includes("-") == false) {
+    gameInfoElem.innerHTML = `Хорошо! ${nikName} Было загадано слово "${randomWord}"`;
+    playerWin();
+    return;
+  }
 }
 
 /*
+- если отгадать осталось одну букву, и последней буквой была не правильная, то при следующей 
+  правильной букве, игра не выдет победу
 - изменить количество жизней в зависимости от длины слова.
 - соответственно перерисовать canvas
+- у html есть атрибут отвечающий за изменение кнопок
+- атрибуты data
 */

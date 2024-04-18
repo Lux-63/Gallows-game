@@ -81,8 +81,8 @@ body {
   display: flex;
   flex-wrap: nowrap;
   margin: 0px;
-  justify-content: space-evenly;
-  align-items: stretch;
+  justify-content: center;
+  align-items: first baseline;
   background-color: rgb(255, 255, 255);
 }
 .letter {
@@ -123,3 +123,5 @@ body {
 .letter-correct {
   background-color: green;
 }
+
+
