@@ -150,8 +150,6 @@ generationWord();
 console.log(`Привет, ${nikName}`);
 
 //количество жизней и отрисовка игры в canvas.
- 
-
 /**
  * площадка.
  */
@@ -300,10 +298,7 @@ function tenLife() {
 function playerWin() {
   lifeField.beginPath();
   //очистка поля.
-  lifeField.clearRect(115, 31, 90, 208);
-  //веревка.
-  lifeField.moveTo(160, 31);
-  lifeField.lineTo(160, 80);
+  lifeField.clearRect(115, 63, 95, 165);
   //л. глаз.
   lifeField.moveTo(148.5, 111);
   lifeField.arc(148.5, 115, 5, 300, 360, false);
@@ -342,8 +337,10 @@ function playerWin() {
   lifeField.lineWidth = 2;
   lifeField.stroke();
 }
+
 //массив количества жизней.
-let chanceLife = [tenLife,
+let chanceLife = [
+  tenLife,
   nineLife,
   eightLife,
   sevenLife,
@@ -360,6 +357,7 @@ let chanceLife = [tenLife,
  * генерация слова, замена букв на символы, сброс всех значений при рестарте игры.
  */
 function generationWord() {
+  //обнуляем значения.
   answer = [];
   answerDiv = [];
   imageParts = 10;
@@ -413,14 +411,8 @@ function checkLetter() {
   enteredValueElem.focus();
 
   console.log(enteredValueElem.value.toLowerCase());
-  //это тут уже ни к селу ни к городу. так как больше одной буквы уже не ввести.
-  if (n.length !== 1) {
-    gameInfoElem.innerHTML = "Пожалуйста, введите одну букву.";
-    console.log("введено меньше или больше одной буквы");
-  } else {
     gameInfoElem.innerHTML = 'Угадайте букву или нажмите "Начать заново" что бы сменить слово.';
     gameProcess(n);
-  }
 }
 
 /**
@@ -441,18 +433,15 @@ function gameProcess(meaning) {
     let partPerLife = imageParts / attempts;
     let parts = imageParts - Math.ceil(partPerLife);
 
-    while (imageParts > parts) {
+    for (;imageParts > parts; imageParts--) {
       chanceLife[imageParts - 1]();
-      imageParts--;
-      console.log(imageParts, chanceLife[imageParts-1]);
     }
     attempts--;
-    console.log("минус жизнь", attempts);
+    console.log("минус жизнь", attempts, imageParts);
   }
   //game over.
   if (attempts == 0) {
     gameInfoElem.innerHTML = `${nikName} Вы проиграли! Было загадано слово "${randomWord}"`;
-    chanceLife[attempts]();
     console.log("Проигрыш");
     return;
   }
@@ -484,7 +473,9 @@ function gameProcess(meaning) {
 
 /*
 - цифры стоит выносить в константы. не использовать внутри кода целенаправленные числа(слова), которые имеют смысл
-
+- если не было ни одной ошибки челочек рисуется с веревкой но без виселицы. веревка в воздухе висит
+- буквы которые отмечены цветом уже нажимались, а следовательно повторное их нажатие должно вызывать надпись
+  "Вы уже пробовали эту букву"
 
 - изменить количество жизней в зависимости от длины слова.
 - у html есть атрибут отвечающий за изменение кнопок
