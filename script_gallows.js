@@ -356,9 +356,6 @@ let chanceLife = [
 //кол-во частей в канвас.
 const imageParts = chanceLife.length;
 
-
-
-
 // выбор случайного слова.
 /**
  * генерация слова, замена букв на символы, сброс всех значений при рестарте игры.
@@ -389,12 +386,6 @@ function generationWord() {
     ];
 
   for (let i = 0; randomWord.length > i; i++) {
-    if (randomWord[i] == "ё") {
-      checkInWord = `${checkInWord}е`;
-    } else {
-      checkInWord = `${checkInWord}${randomWord[i]}`
-    }
-    
     let divElem = document.createElement("div");
     divElem.className = "answer-word";
     divElem.append((answer[i] = "-"));
@@ -402,9 +393,10 @@ function generationWord() {
     answer[i] = "-";
   }
 
-  //сброс стилей кнопок алфавита.
+  //сброс кнопок алфавита.
   for (i = 0; meaningButton.length > i; i++) {
     meaningButton[i].style = ".letter";
+    meaningButton[i].disabled = false;
   }
 
   lifeField.clearRect(0, 0, canvas.width, canvas.height);
@@ -414,10 +406,6 @@ function generationWord() {
   console.log(randomWord, remainingLetters);
   gameInfoElem.innerHTML = 'Угадайте букву или нажмите "Начать заново" что бы сменить слово.';
 }
-
-
-
-
 
 /**
  * вытягивание значения. проверка на количесвто букв и жизней.
@@ -429,13 +417,9 @@ function checkLetter() {
   enteredValueElem.focus();
 
   console.log(enteredValueElem.value.toLowerCase());
-    gameInfoElem.innerHTML = 'Угадайте букву или нажмите "Начать заново" что бы сменить слово.';
-    gameProcess(n);
+  gameInfoElem.innerHTML = 'Угадайте букву или нажмите "Начать заново" что бы сменить слово.';
+  gameProcess(n);
 }
-
-
-
-
 
 /**
  * процесс игры. проверка наличия буквы, отгаданной буквы и конец игры.
@@ -447,72 +431,119 @@ function gameProcess(meaning) {
   //проверка использованной буквы
   const styleColorButton = document.querySelectorAll(".letter")[buttonId].style.backgroundColor;
   if (styleColorButton == "red" || styleColorButton == "green") {
-    gameInfoElem.innerHTML = `${nikName} вы уже использовали букву!`;
-    return;
-    console.log("такая буква уже есть");
+    checkLetterUse();
   }
-
   letterButtonId = meaning;
   // неправильная буква
-  if (checkInWord.includes(meaning) == false && remainingAttempts > 0 && answer.includes("-") == true) {
+  if (
+    randomWord.includes(meaning) == false &&
+    remainingAttempts > 0 &&
+    answer.includes("-") == true
+  ) {
+    wrongLetter(meaning);
+  }
+  correctLetter(meaning);
+
+  if (remainingAttempts == 0 || answer.includes("-") == false) {
+    finalGame();
+  }
+}
+
+/**
+ * проверка использованной буквы.
+ * @returns
+ */
+function checkLetterUse() {
+  gameInfoElem.innerHTML = `${nikName} вы уже использовали букву!`;
+  return;
+  console.log("такая буква уже есть");
+}
+
+/**
+ * неправильная буква.
+ */
+function wrongLetter(meaning) {
+  if (meaning == "е") {
+    gameProcess("ё");
+  } else {
     gameInfoElem.innerHTML = `такой буквы нету. У вас осталось попыток: "${remainingAttempts - 1}"`;
 
     //смена цвета.
     document.querySelectorAll(".letter")[buttonId].style.cssText = `background-color: red;`;
-    // вынести в отдельную функцию
     // отнимаем жизнь
     remainingAttempts--;
-    //
+    // рисуем.
     let partPerLife = imageParts / maxLife;
     let parts = imageParts - Math.ceil(partPerLife * remainingAttempts);
-    
 
     for (let indexAnswer = 0; parts > indexAnswer; indexAnswer++) {
       chanceLife[indexAnswer]();
     }
-    console.log("минус жизнь");
   }
+  console.log("минус жизнь");
+}
 
-
-  //game over.
-  if (remainingAttempts == 0) {
-    gameInfoElem.innerHTML = `${nikName} Вы проиграли! Было загадано слово "${randomWord}"`;
-    console.log("Проигрыш");
-    return;
-  }
-
+/**
+ * верная буква.
+ * @param {string} meaning
+ */
+function correctLetter(meaning) {
   for (let j = 0; j < randomWord.length; j++) {
-    if (checkInWord[j] === meaning) {
-      answer[j] = randomWord[j];
+    if (randomWord[j] === meaning) {
+      answer[j] = meaning;
 
       remainingLetters--;
       hiddenWordElem.childNodes[j].innerHTML = randomWord[j].toUpperCase();
-
       gameInfoElem.innerHTML = `Поздравляем! Такая буква есть. Следующая буква?.`;
 
       //смена цвета кнопки.
       document.querySelectorAll(".letter")[buttonId].style.cssText = `background-color: green;`;
-
       console.log("Буква найдена", answer, "Победа");
     }
   }
-  if (answer.includes("-") == false) {
+}
+
+/**
+ * игра законченя, результаты.
+ * @returns
+ */
+function finalGame() {
+  //game over.
+  if (remainingAttempts == 0) {
+    gameInfoElem.innerHTML = `${nikName} Вы проиграли! Было загадано слово "${randomWord}"`;
+    console.log("Проигрыш");
+    for (let j = 0; j < randomWord.length; j++) {
+      answer[j] = randomWord[j];
+      hiddenWordElem.childNodes[j].innerHTML = randomWord[j].toUpperCase();
+    }
+  }
+
+  //victory.
+  if (answer.includes("-") == false && remainingAttempts > 0) {
     gameInfoElem.innerHTML = `Хорошо! ${nikName} Было загадано слово "${randomWord}"`;
     playerWin();
-    return;
   }
+  // отключить кнопки
+  for (let j = 0; j < meaningButton.length; j++) {
+    meaningButton[j].disabled = true;
+  }
+  
+  return;
 }
 
 /*
 это сделал
-- цифры стоит выносить в константы. не использовать внутри кода целенаправленные числа(слова), которые имеют смысл
-- если не было ни одной ошибки челочек рисуется с веревкой но без виселицы. веревка в воздухе висит
+- цифры стоит выносить в константы. не использовать внутри кода целенаправленные числа(слова), которые имеют смысл.
+- если не было ни одной ошибки челочек рисуется с веревкой но без виселицы. веревка в воздухе висит.
 - буквы которые отмечены цветом уже нажимались, а следовательно повторное их нажатие должно вызывать надпись
-  "Вы уже пробовали эту букву"
+  "Вы уже пробовали эту букву".
 - буква "ё" тут вобще не нужна. заменить "ё" на "е".
 - изменить количество жизней в зависимости от длины слова.
+- когда закончились жизни не выдается слово.
+- когда проиграл отобразить в div загаданное слово.
 
 это еще не нет
-- у html есть атрибут отвечающий за изменение кнопок
-- атрибуты data
+
+- у html есть атрибут отвечающий за изменение кнопок.
+- атрибуты data.
 */
