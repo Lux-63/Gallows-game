@@ -96,6 +96,7 @@ const meaningButton = document.querySelectorAll(".letter");
 //создание див загаданого слова.
 const displayHiddenWord = document.createElement("div");
 
+/*
 //проверка буквы.
 let letterButtonId = "";
 //объект ID.
@@ -133,6 +134,7 @@ let buttonIdObj = {
   б: 30,
   ю: 31,
 };
+*/
 
 //кол-во жизней на игру.
 let maxLife = 7; // не меняется без выбора сложности
@@ -425,75 +427,51 @@ function checkLetter() {
  * процесс игры. проверка наличия буквы, отгаданной буквы и конец игры.
  * @param {Text} meaning
  */
-function gameProcess(meaning) {
-  //console.log(event, "евента значение") function gameProcess(event, meaning) {
-
+function gameProcess(event) {
+    console.log(event, "евента значение")
   //проверка использованной буквы
   const styleColorButton = document.querySelectorAll(".letter")[buttonId].style.backgroundColor;
   if (styleColorButton == "red" || styleColorButton == "green") {
-    checkLetterUse();
+    gameInfoElem.innerHTML = `${nikName} вы уже использовали букву!`;
+    return;
+    console.log("такая буква уже есть");
   }
-  letterButtonId = meaning;
+  //letterButtonId = meaning;
   // неправильная буква
   if (
-    randomWord.includes(meaning) == false &&
+    randomWord.includes(event) == false &&
     remainingAttempts > 0 &&
     answer.includes("-") == true
   ) {
-    wrongLetter(meaning);
-  }
-  correctLetter(meaning);
+    if (event == "е") {
+      gameProcess("ё");
+    } else {
+      gameInfoElem.innerHTML = `такой буквы нету. У вас осталось попыток: "${
+        remainingAttempts - 1
+      }"`;
 
-  if (remainingAttempts == 0 || answer.includes("-") == false) {
-    finalGame();
-  }
-}
+      //смена цвета.
+      document.querySelectorAll(".letter")[buttonId].style.cssText = `background-color: red;`;
+      // отнимаем жизнь
+      remainingAttempts--;
+      // рисуем.
+      let partPerLife = imageParts / maxLife;
+      let parts = imageParts - Math.ceil(partPerLife * remainingAttempts);
 
-/**
- * проверка использованной буквы.
- * @returns
- */
-function checkLetterUse() {
-  gameInfoElem.innerHTML = `${nikName} вы уже использовали букву!`;
-  return;
-  console.log("такая буква уже есть");
-}
-
-/**
- * неправильная буква.
- */
-function wrongLetter(meaning) {
-  if (meaning == "е") {
-    gameProcess("ё");
-  } else {
-    gameInfoElem.innerHTML = `такой буквы нету. У вас осталось попыток: "${remainingAttempts - 1}"`;
-
-    //смена цвета.
-    document.querySelectorAll(".letter")[buttonId].style.cssText = `background-color: red;`;
-    // отнимаем жизнь
-    remainingAttempts--;
-    // рисуем.
-    let partPerLife = imageParts / maxLife;
-    let parts = imageParts - Math.ceil(partPerLife * remainingAttempts);
-
-    for (let indexAnswer = 0; parts > indexAnswer; indexAnswer++) {
-      chanceLife[indexAnswer]();
+      for (let indexAnswer = 0; parts > indexAnswer; indexAnswer++) {
+        chanceLife[indexAnswer]();
+      }
     }
+    console.log("минус жизнь");
   }
-  console.log("минус жизнь");
-}
 
-/**
- * верная буква.
- * @param {string} meaning
- */
-function correctLetter(meaning) {
+  
   for (let j = 0; j < randomWord.length; j++) {
-    if (randomWord[j] === meaning) {
-      answer[j] = meaning;
+    if (randomWord[j] === event) {
+      answer[j] = event;
 
       remainingLetters--;
-      hiddenWordElem.childNodes[j].innerHTML = randomWord[j].toUpperCase();
+      hiddenWordElem.childNodes[j].innerHTML = event.toUpperCase();
       gameInfoElem.innerHTML = `Поздравляем! Такая буква есть. Следующая буква?.`;
 
       //смена цвета кнопки.
@@ -501,35 +479,32 @@ function correctLetter(meaning) {
       console.log("Буква найдена", answer, "Победа");
     }
   }
-}
 
-/**
- * игра законченя, результаты.
- * @returns
- */
-function finalGame() {
-  //game over.
-  if (remainingAttempts == 0) {
-    gameInfoElem.innerHTML = `${nikName} Вы проиграли! Было загадано слово "${randomWord}"`;
-    console.log("Проигрыш");
-    for (let j = 0; j < randomWord.length; j++) {
-      answer[j] = randomWord[j];
-      hiddenWordElem.childNodes[j].innerHTML = randomWord[j].toUpperCase();
-    }
-  }
-
-  //victory.
-  if (answer.includes("-") == false && remainingAttempts > 0) {
-    gameInfoElem.innerHTML = `Хорошо! ${nikName} Было загадано слово "${randomWord}"`;
-    playerWin();
-  }
-  // отключить кнопки
-  for (let j = 0; j < meaningButton.length; j++) {
-    meaningButton[j].disabled = true;
-  }
   
-  return;
-}
+    if (remainingAttempts == 0) {
+      gameInfoElem.innerHTML = `${nikName} Вы проиграли! Было загадано слово "${randomWord}"`;
+      console.log("Проигрыш");
+      for (let j = 0; j < randomWord.length; j++) {
+        answer[j] = randomWord[j];
+        hiddenWordElem.childNodes[j].innerHTML = randomWord[j].toUpperCase();
+      }
+      buttonOff()
+    }
+
+    //victory.
+    if (answer.includes("-") == false && remainingAttempts > 0) {
+      gameInfoElem.innerHTML = `Хорошо! ${nikName} Было загадано слово "${randomWord}"`;
+      playerWin();
+      buttonOff();
+    }
+    return;
+  }
+  function buttonOff(){
+        // отключить кнопки
+        for (let j = 0; j < meaningButton.length; j++) {
+          meaningButton[j].disabled = true;
+        }
+  }
 
 /*
 это сделал
