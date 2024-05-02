@@ -30,42 +30,42 @@
               <button id="reset" class="reset" onclick='selectedCategory = "all", generationWord()'>все категории</button>
             </div>
             <div class="line">
-              <button class="letter" data-index="й" onclick=" gameProcess('й')">Й</button>
-              <button class="letter" data-index="ц" onclick=" gameProcess('ц')">Ц</button>
-              <button class="letter" data-index="у" onclick="buttonId=2; gameProcess('у')">У</button>
-              <button class="letter" data-index="к" onclick="buttonId=3; gameProcess('к')">К</button>
-              <button class="letter" data-index="е" onclick="gameProcess('е')">Е</button>
-              <button class="letter" data-index="н" onclick="buttonId=5; gameProcess('н')">Н</button>
-              <button class="letter" data-index="г" onclick="buttonId=6; gameProcess('г')">Г</button>
-              <button class="letter" data-index="ш" onclick="buttonId=7; gameProcess('ш')">Ш</button>
-              <button class="letter" data-index="щ" onclick="buttonId=8; gameProcess('щ')">Щ</button>
-              <button class="letter" data-index="з" onclick="buttonId=9; gameProcess('з')">З</button>
-              <button class="letter" data-index="х" onclick="buttonId=10; gameProcess('х')">Х</button>
-              <button class="letter" data-index="ъ" onclick="buttonId=11; gameProcess('ъ')">Ъ</button>
+              <button class="letter" data-index="й" onclick=" gameProcess(event, 'й')">Й</button>
+              <button class="letter" data-index="ц" onclick=" gameProcess(event, 'ц')">Ц</button>
+              <button class="letter" data-index="у" onclick="gameProcess(event, 'у')">У</button>
+              <button class="letter" data-index="к" onclick="gameProcess(event, 'к')">К</button>
+              <button class="letter" data-index="е" onclick="gameProcess(event, 'е')">Е</button>
+              <button class="letter" data-index="н" onclick="gameProcess(event, 'н')">Н</button>
+              <button class="letter" data-index="г" onclick="gameProcess(event, 'г')">Г</button>
+              <button class="letter" data-index="ш" onclick="gameProcess(event, 'ш')">Ш</button>
+              <button class="letter" data-index="щ" onclick="gameProcess(event, 'щ')">Щ</button>
+              <button class="letter" data-index="з" onclick="gameProcess(event, 'з')">З</button>
+              <button class="letter" data-index="х" onclick="gameProcess(event, 'х')">Х</button>
+              <button class="letter" data-index="ъ" onclick="gameProcess(event, 'ъ')">Ъ</button>
             </div>
             <div class="line">
-              <button class="letter" data-index="ф" onclick="buttonId=12; gameProcess('ф')">Ф</button>
-              <button class="letter" data-index="ы" onclick="buttonId=13; gameProcess('ы')">Ы</button>
-              <button class="letter" data-index="в" onclick="buttonId=14; gameProcess('в')">В</button>
-              <button class="letter" data-index="а" onclick="buttonId=15; gameProcess('а')">А</button>
-              <button class="letter" data-index="п" onclick="buttonId=16; gameProcess('п')">П</button>
-              <button class="letter" data-index="р" onclick=" gameProcess('р')">Р</button>
-              <button class="letter" data-index="о" onclick="gameProcess('о')">О</button>
-              <button class="letter" data-index="л" onclick="buttonId=19; gameProcess('л')">Л</button>
-              <button class="letter" data-index="д" onclick="buttonId=20; gameProcess('д')">Д</button>
-              <button class="letter" data-index="ж" onclick="buttonId=21; gameProcess('ж')">Ж</button>
-              <button class="letter" data-index="э" onclick="buttonId=22; gameProcess('э')">Э</button>
+              <button class="letter" data-index="ф" onclick="gameProcess(event, 'ф')">Ф</button>
+              <button class="letter" data-index="ы" onclick="gameProcess(event, 'ы')">Ы</button>
+              <button class="letter" data-index="в" onclick="gameProcess(event, 'в')">В</button>
+              <button class="letter" data-index="а" onclick="gameProcess(event, 'а')">А</button>
+              <button class="letter" data-index="п" onclick="gameProcess(event, 'п')">П</button>
+              <button class="letter" data-index="р" onclick="gameProcess(event, 'р')">Р</button>
+              <button class="letter" data-index="о" onclick="gameProcess(event, 'о')">О</button>
+              <button class="letter" data-index="л" onclick="gameProcess(event, 'л')">Л</button>
+              <button class="letter" data-index="д" onclick="gameProcess(event, 'д')">Д</button>
+              <button class="letter" data-index="ж" onclick="gameProcess(event, 'ж')">Ж</button>
+              <button class="letter" data-index="э" onclick="gameProcess(event, 'э')">Э</button>
             </div>
             <div class="line">
-              <button class="letter" data-index="я" onclick="buttonId=23; gameProcess('я')">Я</button>
-              <button class="letter" data-index="ч" onclick="buttonId=24; gameProcess('ч')">Ч</button>
-              <button class="letter" data-index="с" onclick="buttonId=25; gameProcess('с')">С</button>
-              <button class="letter" data-index="м" onclick="buttonId=26; gameProcess('м')">М</button>
-              <button class="letter" data-index="и" onclick="buttonId=27; gameProcess('и')">И</button>
-              <button class="letter" data-index="т" onclick="buttonId=28; gameProcess('т')">Т</button>
-              <button class="letter" data-index="ь" onclick="buttonId=29; gameProcess('ь')">Ь</button>
-              <button class="letter" data-index="б" onclick="buttonId=30; gameProcess('б')">Б</button>
-              <button class="letter" data-index="ю" onclick="buttonId=31; gameProcess('ю')">Ю</button>
+              <button class="letter" data-index="я" onclick="gameProcess(event, 'я')">Я</button>
+              <button class="letter" data-index="ч" onclick="gameProcess(event, 'ч')">Ч</button>
+              <button class="letter" data-index="с" onclick="gameProcess(event, 'с')">С</button>
+              <button class="letter" data-index="м" onclick="gameProcess(event, 'м')">М</button>
+              <button class="letter" data-index="и" onclick="gameProcess(event, 'и')">И</button>
+              <button class="letter" data-index="т" onclick="gameProcess(event, 'т')">Т</button>
+              <button class="letter" data-index="ь" onclick="gameProcess(event, 'ь')">Ь</button>
+              <button class="letter" data-index="б" onclick="gameProcess(event, 'б')">Б</button>
+              <button class="letter" data-index="ю" onclick="gameProcess(event, 'ю')">Ю</button>
             </div>
             <div class="line">
 
