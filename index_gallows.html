@@ -18,16 +18,16 @@
         <div><canvas id="canvas" class="canvas"  height="250px" width="300px"></canvas></div>
         <div id="information" class="information"></div>
         <div class="block-answer">
-          <button id="reset" class="reset" onclick='difficultyGame = "easy"'>легко</button>
+          <button id="reset" class="reset" onclick='difficultyGame("easy")'>легко</button>
           <div id="answer" class="answer"></div>
-          <button id="reset" class="reset" onclick='difficultyGame = "hard"'>сложно</button>
+          <button id="reset" class="reset" onclick='difficultyGame("hard")'>сложно</button>
         </div>
         
             <div class="line">
-              <button id="reset" class="reset" onclick='selectedCategory = "animal", generationWord() '>животные</button>
-              <button id="reset" class="reset" onclick='selectedCategory = "edible", generationWord()'>съедобное</button>
-              <button id="reset" class="reset" onclick='selectedCategory = "inedible", generationWord()'>несъедобное</button>
-              <button id="reset" class="reset" onclick='selectedCategory = "all", generationWord()'>все категории</button>
+              <button id="reset" class="reset" onclick='selectedCategory("animal"), generationWord() '>животные</button>
+              <button id="reset" class="reset" onclick='selectedCategory("edible"), generationWord()'>съедобное</button>
+              <button id="reset" class="reset" onclick='selectedCategory("inedible"), generationWord()'>несъедобное</button>
+              <button id="reset" class="reset" onclick='selectedCategory("all"), generationWord()'>все категории</button>
             </div>
             <div class="line">
               <button class="letter" data-index="й" onclick=" gameProcess(event, 'й')">Й</button>
