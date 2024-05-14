@@ -61,6 +61,7 @@ const gameLevel = {
       "электричка",
       "сноуборд",
       "программа",
+      "верёвка",
     ],
   },
   all: {
@@ -105,25 +106,9 @@ const letterButton = document.querySelectorAll(".letter");
 //создание див загаданого слова.
 const displayHiddenWord = document.createElement("div");
 
-/*
-типа ты где-то в проекте на глобальном уровне объявляешь типа
-const STATE_LETTER_USED = 1
-const STATE_LETTER_WRONG = 2
-const STATE_LETTER_CORRECT = 3
-
-в твоей функции проверки ты возвращаешь
-return STATE_LETTER_USED
-
-а в кейсе проверка
-case STATE_LETTER_USED
-
-узнать инфу по написанию
-
-*/
-
-const stateLetterUsed = 1;
-const stateLetterCorrect = 2;
-const stateLetterWrong = 3;
+const STATE_LETTER_USED = 1;
+const STATE_LETTER_CORRECT = 2;
+const STATE_LETTER_WRONG = 3;
 
 const gameState = {
   lettersUsed: [],
@@ -138,18 +123,17 @@ const gameState = {
   charLetterUsage(letter) {
     if (this.lettersUsed.includes(letter)) {
       console.log("repeat");
-      return stateLetterUsed;
+      return STATE_LETTER_USED;
     }
     if (this.randomWord.includes(letter)) {
       console.log("correct");
-      return stateLetterCorrect;
+      return STATE_LETTER_CORRECT;
     } else if (letter == "е" && this.randomWord.includes("ё")) {
-      letter = "ё";
       console.log("correct", letter);
-      return stateLetterCorrect;
+      return STATE_LETTER_CORRECT;
     } else {
       console.log("wrong");
-      return stateLetterWrong;
+      return STATE_LETTER_WRONG;
     }
   },
   checkGameEnd() {
@@ -158,7 +142,7 @@ const gameState = {
     } else if (this.answer.includes("-") == false && this.remainingAttempts > 0) {
       victory();
     }
-  }
+  },
 };
 
 /**
@@ -171,7 +155,7 @@ function gameStateReset() {
   hiddenWordElem.replaceChildren();
   //сброс кнопок алфавита.
   for (i = 0; letterButton.length > i; i++) {
-    letterButton[i].style = ".letter";
+    letterButton[i].classList.remove("letter-wrong", "letter-correct");
     letterButton[i].disabled = false;
   }
   lifeField.clearRect(0, 0, canvas.width, canvas.height);
@@ -437,19 +421,13 @@ function generationWord() {
 function gameProcess(event) {
   const buttonPosition = event.target;
   const letter = event.target.dataset.index;
-  console.log(
-    "попытка выцепить данные:",
-    event.target,
-    "значение data-index:",
-    event.target.dataset.index
-  );
 
   switch (gameState.charLetterUsage(letter)) {
     case 1:
       gameInfoElem.innerHTML = gameInfo.letterWas;
       return;
     case 2:
-      console.log("передача леттера", letter)
+      console.log("передача леттера", letter);
       correctLetter(buttonPosition, letter);
       break;
     case 3:
@@ -458,43 +436,40 @@ function gameProcess(event) {
   }
   gameState.lettersUsed.push(letter);
 
-  gameState.checkGameEnd()
+  gameState.checkGameEnd();
 }
 
 function correctLetter(buttonPosition, letter) {
+  let letterForCheck = [letter];
+  if (letter == "е") {
+    letterForCheck = ["е", "ё"];
+  }
   for (let j = 0; j < gameState.randomWord.length; j++) {
-    if (gameState.randomWord[j] === letter) {
-      gameState.answer[j] = letter;
+    if (letterForCheck.includes(gameState.randomWord[j])) {
+      gameState.answer[j] = gameState.randomWord[j];
 
       gameState.remainingLetters--;
-      hiddenWordElem.childNodes[j].innerHTML = letter.toUpperCase();
+      hiddenWordElem.childNodes[j].innerHTML = gameState.randomWord[j].toUpperCase();
       gameInfoElem.innerHTML = gameInfo.correctLetter;
 
       //смена цвета кнопки.
-      buttonPosition.style.cssText = `background-color: green;`;
+      buttonPosition.className += " letter-correct";
       console.log("Буква найдена", gameState.answer, "Победа");
     }
   }
 }
 
 function wrongLetter(buttonPosition, letter) {
-  if (
-    //подумать может быть и всеь этот иф не нужен вовсе
-    gameState.remainingAttempts > 0 &&
-    gameState.answer.includes("-") == true
-  ) {
-      //смена цвета.
-      buttonPosition.style.cssText = `background-color: red;`;
-      // отнимаем жизнь
-      gameState.remainingAttempts--;
-      gameInfoElem.innerHTML = gameInfo.wrong + '"' + gameState.remainingAttempts + '"';
-      // рисуем.
-      let partPerLife = imageParts / gameState.maxLife;
-      let parts = imageParts - Math.ceil(partPerLife * gameState.remainingAttempts);
-
-      for (let indexAnswer = 0; parts > indexAnswer; indexAnswer++) {
-        chanceLife[indexAnswer]();
-      }
+  //смена цвета.
+  buttonPosition.className += " letter-wrong";
+  // отнимаем жизнь
+  gameState.remainingAttempts--;
+  gameInfoElem.innerHTML = gameInfo.wrong + '"' + gameState.remainingAttempts + '"';
+  // рисуем.
+  let partPerLife = imageParts / gameState.maxLife;
+  let parts = imageParts - Math.ceil(partPerLife * gameState.remainingAttempts);
+  for (let indexAnswer = 0; parts > indexAnswer; indexAnswer++) {
+    chanceLife[indexAnswer]();
     console.log("минус жизнь");
   }
 }
@@ -521,26 +496,3 @@ function buttonOff() {
     letterButton[j].disabled = true;
   }
 }
-
-/*
-это сделал
-- цифры стоит выносить в константы. не использовать внутри кода целенаправленные числа(слова), которые имеют смысл.
-- если не было ни одной ошибки челочек рисуется с веревкой но без виселицы. веревка в воздухе висит.
-- буквы которые отмечены цветом уже нажимались, а следовательно повторное их нажатие должно вызывать надпись
-  "Вы уже пробовали эту букву".
-- буква "ё" тут вобще не нужна. заменить "ё" на "е".
-- изменить количество жизней в зависимости от длины слова.
-- когда закончились жизни не выдается слово.
-- когда проиграл отобразить в div загаданное слово.
-- draw добавить в начале каждой функции рисования
-
-это еще не нет
-- я меняю цвет напрямую, а надо добавлять класс..... 
-- про свитч кейс
-методы в гайм параметры
-
-
-
-вопросы:
--объект фраз, для общения с игроком.
-*/

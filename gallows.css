@@ -126,10 +126,14 @@ body {
 }
 
 .letter-wrong {
-  background-color: red;
+  background-image: url(wrong_strikethrough.jpg);
+  background-size: cover;
+  background-blend-mode: normal;
 }
 .letter-correct {
-  background-color: green;
+  background-image: url(correct_strikethrough.jpg);
+  background-size: cover;
+  background-blend-mode: normal;
 }
 
 
