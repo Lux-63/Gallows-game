@@ -20,7 +20,7 @@ const gameLevel = {
       "собака",
       "мышь",
     ],
-    hard: ["Игуана", "гиппопотам", "трясогузка", "леопард", "аллигатор", "горилла"],
+    hard: ["игуана", "гиппопотам", "трясогузка", "леопард", "аллигатор", "горилла"],
   },
   edible: {
     easy: [
@@ -69,12 +69,28 @@ const gameLevel = {
     hard: [],
   },
 };
+
+const activeButtonSelect = {
+  animal: 2,
+  edible: 3,
+  inedible: 4,
+  all: 5,
+}
+
 /**
  * сложность игры.
  * @param {string} n
  */
 function difficultyGame(n) {
   gameState.difficulty = n;
+
+  if (n == "hard") {
+    resetGameElem[1].className += " active";
+    resetGameElem[0].className = "js-reset-btn btn btn-outline-secondary"
+  } else {
+    resetGameElem[0].className += " active";
+    resetGameElem[1].className = "js-reset-btn btn btn-outline-secondary"
+  }
 }
 /**
  * категория слов.
@@ -82,6 +98,10 @@ function difficultyGame(n) {
  */
 function selectedCategory(n) {
   gameState.category = n;
+
+  if (n === 0) {
+
+  }
 }
 
 /**
@@ -97,12 +117,11 @@ for (let category in gameLevel) {
 //массив функций canvas.
 let lifeField = document.querySelector(".canvas").getContext("2d");
 //доступ к элементам в html.
-const gameInfoElem = document.querySelector(".information");
-const hiddenWordElem = document.querySelector(".hidden-word");
-const topWindowElem = document.querySelector(".top-window");
-const inputValueElem = document.querySelector(".input");
-const resetGameElem = document.querySelector(".reset");
-const letterButton = document.querySelectorAll(".letter");
+const gameInfoElem = document.querySelector(".js-information-btn");
+const hiddenWordElem = document.querySelector(".js-hidden-word-btn");
+const topWindowElem = document.querySelector(".js-top-window-btn");
+const resetGameElem = document.querySelectorAll(".js-reset-btn");
+const letterButton = document.querySelectorAll(".js-letter-btn");
 //создание див загаданого слова.
 const displayHiddenWord = document.createElement("div");
 
@@ -145,6 +164,7 @@ const gameState = {
   },
 };
 
+
 /**
  * обнуляем значения, для начала новой игры
  */
@@ -155,7 +175,7 @@ function gameStateReset() {
   hiddenWordElem.replaceChildren();
   //сброс кнопок алфавита.
   for (i = 0; letterButton.length > i; i++) {
-    letterButton[i].classList.remove("letter-wrong", "letter-correct");
+    letterButton[i].className = "letter btn btn-outline-secondary btn-lg flex-grow-1";
     letterButton[i].disabled = false;
   }
   lifeField.clearRect(0, 0, canvas.width, canvas.height);
@@ -401,7 +421,8 @@ function generationWord() {
 
   for (let i = 0; gameState.randomWord.length > i; i++) {
     let divElem = document.createElement("div");
-    divElem.className = "answer-word";
+    divElem.className = "js-answer-word-btn d-flex justify-content-around align-items-stretch align-self-stretch btn btn-outline-secondary btn-lg flex-grow-1";
+    divElem.style = "--bs-btn-padding-y: .80rem; --bs-btn-padding-x: .125rem; --bs-btn-font-size: .95rem;"
     divElem.append((gameState.answer[i] = "-"));
     gameState.answerDiv.push(divElem);
     gameState.answer[i] = "-";
@@ -453,7 +474,7 @@ function correctLetter(buttonPosition, letter) {
       gameInfoElem.innerHTML = gameInfo.correctLetter;
 
       //смена цвета кнопки.
-      buttonPosition.className += " letter-correct";
+      buttonPosition.className += "btn btn-success flex-grow-1";
       console.log("Буква найдена", gameState.answer, "Победа");
     }
   }
@@ -461,7 +482,7 @@ function correctLetter(buttonPosition, letter) {
 
 function wrongLetter(buttonPosition, letter) {
   //смена цвета.
-  buttonPosition.className += " letter-wrong";
+  buttonPosition.className += "letter btn btn-danger btn-lg flex-grow-1";
   // отнимаем жизнь
   gameState.remainingAttempts--;
   gameInfoElem.innerHTML = gameInfo.wrong + '"' + gameState.remainingAttempts + '"';

@@ -1,17 +1,12 @@
-html,
-body {
-  width: 100vh;
-  height: 100vh;
-  margin: auto;
-}
-.main-container {
+
+.main-container1 {
   display: flex;
   justify-content: center;
   align-items: stretch;
   background-color: rgb(167, 167, 167);
 }
 
-.container-2 {
+.container-21 {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -24,7 +19,7 @@ body {
   background-color: rgb(248, 248, 248);
 }
 
-.top-window {
+.top-window1 {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -34,7 +29,7 @@ body {
   margin: auto;
   text-align: center;
 }
-.canvas {
+.canvas1 {
   display: flex;
   justify-content: left;
   margin: auto;
@@ -43,7 +38,7 @@ body {
   background-color: rgb(221, 221, 221);
 }
 
-.information {
+.information1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -54,7 +49,7 @@ body {
   background-color: rgb(224, 224, 224);
 }
 
-.hidden-word {
+.hidden-word1 {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -63,10 +58,10 @@ body {
   font-size: 30px;
   background-color: rgb(255, 255, 255);
 }
-.block-answer {
+.block-answer1 {
   display: flex;
 }
-.answer-word {
+.answer-word1 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -77,7 +72,7 @@ body {
   justify-content: center;
   background-color: rgb(255, 255, 255);
 }
-.line {
+.line1 {
   display: flex;
   flex-wrap: nowrap;
   margin: 0px;
@@ -92,7 +87,7 @@ body {
     text-align: center;
   }
 }
-.letter {
+.letter1 {
   display: flex;
   flex-wrap: wrap;
   flex-grow: 1;
@@ -107,10 +102,9 @@ body {
   font-size: 20px;
   text-align: center;
   align-items: center;
-  background-color: rgb(194, 216, 221);
 }
 
-.reset {
+.reset1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -125,12 +119,12 @@ body {
   background-color: rgb(194, 216, 221);
 }
 
-.letter-wrong {
+.letter-wrong1 {
   background-image: url(wrong_strikethrough.jpg);
   background-size: cover;
   background-blend-mode: normal;
 }
-.letter-correct {
+.letter-correct1 {
   background-image: url(correct_strikethrough.jpg);
   background-size: cover;
   background-blend-mode: normal;
