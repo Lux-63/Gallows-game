@@ -43,66 +43,71 @@
     </nav>
 
 
+    <div class="container text-center" style="width: 600px;">
+        <div class="js-top-window-btn row"></div>
 
-      <div class="d-flex justify-content-center flex-column align-items-center border border-black mx-auto p-2" style="width: 600px;">
-        <div class="js-top-window-btn">
+        <div class="row">
+          <div><canvas id="canvas" class="canvas border border-black center"  height="250px" width="300px"></canvas></div>
         </div>
-        <div><canvas id="canvas" class="canvas border border-black"  height="250px" width="300px"></canvas></div>
-        <div class="js-information-btn"></div>
-        <div class="js-block-answer-btn d-flex justify-content-around flex-fill" style="width: 570px;">
-          <button class="js-reset-btn btn btn-outline-secondary active" data-bs-toggle="button" onclick='difficultyGame("easy")'>легко</button>
-          <div class="js-hidden-word-btn d-flex justify-content-between border border-black mx-auto p-2 " style="width: 400px;"></div>
-          <button class="js-reset-btn btn btn-outline-secondary" data-bs-toggle="button" onclick='difficultyGame("hard")'>сложно</button>
+        <div class="row">
+          <div class="js-information-btn col"></div>
         </div>
         
-            <div class="js-line-btn d-flex justify-content-around align-items-stretch align-self-stretch btn btn-lg flex-grow-1" style="width: 570px;">
-              <button class="js-reset-btn btn btn-outline-secondary active" data-bs-toggle="button" onclick='selectedCategory("animal"), generationWord() '>животные</button>
-              <button class="js-reset-btn btn btn-outline-secondary" data-bs-toggle="button" onclick='selectedCategory("edible"), generationWord()'>съедобное</button>
-              <button class="js-reset-btn btn btn-outline-secondary" data-bs-toggle="button" onclick='selectedCategory("inedible"), generationWord()'>несъедобное</button>
-              <button class="js-reset-btn btn btn-outline-secondary" data-bs-toggle="button" onclick='selectedCategory("all"), generationWord()'>все категории</button>
+
+        <div class="js-block-answer-btn row" >
+          <button class="js-reset-btn col btn btn-outline-secondary active" data-bs-toggle="button" onclick='difficultyGame("easy")'>легко</button>
+          <div class="js-hidden-word-btn row" style="width: 400px;"></div>
+          <button class="js-reset-btn col btn btn-outline-secondary" data-bs-toggle="button" onclick='difficultyGame("hard")'>сложно</button>
+        </div>
+        
+            <div class="js-line-btn col">
+              <button class="js-reset-btn col btn btn-outline-secondary acttive" data-bs-toggle="button" onclick='selectedCategory("animal"); generationWord() '>животные</button>
+              <button class="js-reset-btn col btn btn-outline-secondary" data-bs-toggle="button" onclick='selectedCategory("edible"); generationWord()'>съедобное</button>
+              <button class="js-reset-btn col btn btn-outline-secondary" data-bs-toggle="button" onclick='selectedCategory("inedible"); generationWord()'>несъедобное</button>
+              <button class="js-reset-btn col btn btn-outline-secondary" data-bs-toggle="button" onclick='selectedCategory("all"); generationWord()'>все категории</button>
             </div>
-            <div class="js-line-btn d-flex justify-content-around align-items-stretch align-self-stretch flex-fill" style="width: 570px;">
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="й" onclick=" gameProcess(event, 'й')">Й</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="ц" onclick=" gameProcess(event, 'ц')">Ц</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="у" onclick="gameProcess(event, 'у')">У</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="к" onclick="gameProcess(event, 'к')">К</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="е" onclick="gameProcess(event, 'е')">Е</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="н" onclick="gameProcess(event, 'н')">Н</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="г" onclick="gameProcess(event, 'г')">Г</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="ш" onclick="gameProcess(event, 'ш')">Ш</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="щ" onclick="gameProcess(event, 'щ')">Щ</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="з" onclick="gameProcess(event, 'з')">З</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="х" onclick="gameProcess(event, 'х')">Х</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="ъ" onclick="gameProcess(event, 'ъ')">Ъ</button>
+            <div class="js-line-btn row">
+              <button class="js-letter-btn col btn btn-outline-secondary" data-index="й" onclick=" gameProcess(event, 'й')">Й</button>
+              <button class="js-letter-btn col btn btn-outline-secondary" data-index="ц" onclick=" gameProcess(event, 'ц')">Ц</button>
+              <button class="js-letter-btn col btn btn-outline-secondary" data-index="у" onclick="gameProcess(event, 'у')">У</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="к" onclick="gameProcess(event, 'к')">К</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="е" onclick="gameProcess(event, 'е')">Е</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="н" onclick="gameProcess(event, 'н')">Н</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="г" onclick="gameProcess(event, 'г')">Г</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="ш" onclick="gameProcess(event, 'ш')">Ш</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="щ" onclick="gameProcess(event, 'щ')">Щ</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="з" onclick="gameProcess(event, 'з')">З</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="х" onclick="gameProcess(event, 'х')">Х</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="ъ" onclick="gameProcess(event, 'ъ')">Ъ</button>
             </div>
-            <div class="js-line-btn d-flex justify-content-around  align-items-stretch align-self-stretch flex-fill" style="width: 570px;">
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="ф" onclick="gameProcess(event, 'ф')">Ф</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="ы" onclick="gameProcess(event, 'ы')">Ы</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="в" onclick="gameProcess(event, 'в')">В</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="а" onclick="gameProcess(event, 'а')">А</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="п" onclick="gameProcess(event, 'п')">П</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="р" onclick="gameProcess(event, 'р')">Р</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="о" onclick="gameProcess(event, 'о')">О</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="л" onclick="gameProcess(event, 'л')">Л</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="д" onclick="gameProcess(event, 'д')">Д</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="ж" onclick="gameProcess(event, 'ж')">Ж</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="э" onclick="gameProcess(event, 'э')">Э</button>
+            <div class="js-line-btn row">
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="ф" onclick="gameProcess(event, 'ф')">Ф</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="ы" onclick="gameProcess(event, 'ы')">Ы</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="в" onclick="gameProcess(event, 'в')">В</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="а" onclick="gameProcess(event, 'а')">А</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="п" onclick="gameProcess(event, 'п')">П</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="р" onclick="gameProcess(event, 'р')">Р</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="о" onclick="gameProcess(event, 'о')">О</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="л" onclick="gameProcess(event, 'л')">Л</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="д" onclick="gameProcess(event, 'д')">Д</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="ж" onclick="gameProcess(event, 'ж')">Ж</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="э" onclick="gameProcess(event, 'э')">Э</button>
             </div>
-            <div class="js-line-btn d-flex justify-content-around align-items-stretch align-self-stretch flex-grow-1" style="width: 570px;">
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="я" onclick="gameProcess(event, 'я')">Я</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="ч" onclick="gameProcess(event, 'ч')">Ч</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="с" onclick="gameProcess(event, 'с')">С</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="м" onclick="gameProcess(event, 'м')">М</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="и" onclick="gameProcess(event, 'и')">И</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="т" onclick="gameProcess(event, 'т')">Т</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="ь" onclick="gameProcess(event, 'ь')">Ь</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="б" onclick="gameProcess(event, 'б')">Б</button>
-              <button class="js-letter-btn btn btn-outline-secondary btn-lg flex-grow-1" data-index="ю" onclick="gameProcess(event, 'ю')">Ю</button>
+            <div class="js-line-btn row">
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="я" onclick="gameProcess(event, 'я')">Я</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="ч" onclick="gameProcess(event, 'ч')">Ч</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="с" onclick="gameProcess(event, 'с')">С</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="м" onclick="gameProcess(event, 'м')">М</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="и" onclick="gameProcess(event, 'и')">И</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="т" onclick="gameProcess(event, 'т')">Т</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="ь" onclick="gameProcess(event, 'ь')">Ь</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="б" onclick="gameProcess(event, 'б')">Б</button>
+              <button class="js-letter-btn col btn btn-outline-secondary " data-index="ю" onclick="gameProcess(event, 'ю')">Ю</button>
             </div>
             <div class="js-line-btn">
             </div>
           </div>
-        </div>
+
       <script src="bootstrap.js"></script>
       <script src="script_gallows.js"></script>
   </body>

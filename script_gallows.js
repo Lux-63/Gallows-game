@@ -75,7 +75,7 @@ const activeButtonSelect = {
   edible: 3,
   inedible: 4,
   all: 5,
-}
+};
 
 /**
  * сложность игры.
@@ -86,21 +86,27 @@ function difficultyGame(n) {
 
   if (n == "hard") {
     resetGameElem[1].className += " active";
-    resetGameElem[0].className = "js-reset-btn btn btn-outline-secondary"
+    resetGameElem[0].className = "js-reset-btn col btn btn-outline-secondary";
   } else {
     resetGameElem[0].className += " active";
-    resetGameElem[1].className = "js-reset-btn btn btn-outline-secondary"
+    resetGameElem[1].className = "js-reset-btn col btn btn-outline-secondary";
   }
 }
 /**
- * категория слов.
+ * категория слов и смена активной кнопки.
  * @param {string} n
  */
 function selectedCategory(n) {
   gameState.category = n;
+  /*я не понял почему этот параметр ниже, дублирует в класс второй раз "active". 
+  надо посмотреть где я эту функцию сделал
+  */
 
-  if (n === 0) {
-
+  resetGameElem[activeButtonSelect[n]].className += " active"; 
+  for(let off in activeButtonSelect) {
+    if(off !== n) {
+      resetGameElem[activeButtonSelect[off]].className = "js-reset-btn col btn btn-outline-secondary";
+    }
   }
 }
 
@@ -164,7 +170,6 @@ const gameState = {
   },
 };
 
-
 /**
  * обнуляем значения, для начала новой игры
  */
@@ -175,7 +180,7 @@ function gameStateReset() {
   hiddenWordElem.replaceChildren();
   //сброс кнопок алфавита.
   for (i = 0; letterButton.length > i; i++) {
-    letterButton[i].className = "letter btn btn-outline-secondary btn-lg flex-grow-1";
+    letterButton[i].className = "js-letter-btn col btn btn-outline-secondary button-letters";
     letterButton[i].disabled = false;
   }
   lifeField.clearRect(0, 0, canvas.width, canvas.height);
@@ -421,8 +426,8 @@ function generationWord() {
 
   for (let i = 0; gameState.randomWord.length > i; i++) {
     let divElem = document.createElement("div");
-    divElem.className = "js-answer-word-btn d-flex justify-content-around align-items-stretch align-self-stretch btn btn-outline-secondary btn-lg flex-grow-1";
-    divElem.style = "--bs-btn-padding-y: .80rem; --bs-btn-padding-x: .125rem; --bs-btn-font-size: .95rem;"
+    divElem.className = "js-answer-word-btn col";
+    divElem.style = "";
     divElem.append((gameState.answer[i] = "-"));
     gameState.answerDiv.push(divElem);
     gameState.answer[i] = "-";
@@ -474,7 +479,7 @@ function correctLetter(buttonPosition, letter) {
       gameInfoElem.innerHTML = gameInfo.correctLetter;
 
       //смена цвета кнопки.
-      buttonPosition.className += "btn btn-success flex-grow-1";
+      buttonPosition.className += " letter-correct";
       console.log("Буква найдена", gameState.answer, "Победа");
     }
   }
@@ -482,7 +487,7 @@ function correctLetter(buttonPosition, letter) {
 
 function wrongLetter(buttonPosition, letter) {
   //смена цвета.
-  buttonPosition.className += "letter btn btn-danger btn-lg flex-grow-1";
+  buttonPosition.className += " letter-wrong";
   // отнимаем жизнь
   gameState.remainingAttempts--;
   gameInfoElem.innerHTML = gameInfo.wrong + '"' + gameState.remainingAttempts + '"';
@@ -517,3 +522,8 @@ function buttonOff() {
     letterButton[j].disabled = true;
   }
 }
+
+/* 
+при выборе сложности, надо что бы менялось слово
+
+*/

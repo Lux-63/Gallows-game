@@ -119,12 +119,17 @@
   background-color: rgb(194, 216, 221);
 }
 
-.letter-wrong1 {
+.button-letters {
+  width: 50px;
+  height: 50px;
+}
+
+.letter-wrong {
   background-image: url(wrong_strikethrough.jpg);
   background-size: cover;
   background-blend-mode: normal;
 }
-.letter-correct1 {
+.letter-correct {
   background-image: url(correct_strikethrough.jpg);
   background-size: cover;
   background-blend-mode: normal;
