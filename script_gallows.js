@@ -98,11 +98,10 @@ function difficultyGame(n) {
  */
 function selectedCategory(n) {
   gameState.category = n;
-  /*я не понял почему этот параметр ниже, дублирует в класс второй раз "active". 
-  надо посмотреть где я эту функцию сделал
+  /*при добавлении += " active" добавляет двжды параметр в стили. Поставил полную замену стиля.
   */
 
-  resetGameElem[activeButtonSelect[n]].className += " active"; 
+  resetGameElem[activeButtonSelect[n]].className = "js-reset-btn col btn btn-outline-secondary active"; 
   for(let off in activeButtonSelect) {
     if(off !== n) {
       resetGameElem[activeButtonSelect[off]].className = "js-reset-btn col btn btn-outline-secondary";
@@ -171,7 +170,7 @@ const gameState = {
 };
 
 /**
- * обнуляем значения, для начала новой игры
+ * обнуляем значения.
  */
 function gameStateReset() {
   gameState.lettersUsed = [];
