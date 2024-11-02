@@ -99,12 +99,14 @@ function difficultyGame(n) {
 function selectedCategory(n) {
   gameState.category = n;
   /*при добавлении += " active" добавляет двжды параметр в стили. Поставил полную замену стиля.
-  */
+   */
 
-  resetGameElem[activeButtonSelect[n]].className = "js-reset-btn col btn btn-outline-secondary active"; 
-  for(let off in activeButtonSelect) {
-    if(off !== n) {
-      resetGameElem[activeButtonSelect[off]].className = "js-reset-btn col btn btn-outline-secondary";
+  resetGameElem[activeButtonSelect[n]].className =
+    "js-reset-btn col btn btn-outline-secondary active";
+  for (let off in activeButtonSelect) {
+    if (off !== n) {
+      resetGameElem[activeButtonSelect[off]].className =
+        "js-reset-btn col btn btn-outline-secondary";
     }
   }
 }
