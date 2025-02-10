@@ -115,7 +115,7 @@ function selectedCategory(n) {
  * массив всех категорий по сложности.
  */
 for (let category in gameLevel) {
-  if (category != "all") {
+  if (category !== "all") {
     gameLevel["all"]["easy"] = gameLevel["all"]["easy"].concat(gameLevel[category]["easy"]);
     gameLevel["all"]["hard"] = gameLevel["all"]["hard"].concat(gameLevel[category]["hard"]);
   }
@@ -138,14 +138,14 @@ const STATE_LETTER_WRONG = 3;
 
 const gameState = {
   lettersUsed: [],
-  answer: [],
-  answerDiv: [],
+  answer: [], //то что отображается
+  answerDiv: [], // дивы отображающиеся
   difficulty: "easy",
   category: "animal",
-  randomWord: "",
+  randomWord: "", // загаданное слово
   maxLife: 7,
-  remainingAttempts: 0,
-  remainingLetters: 0,
+  remainingAttempts: 0, //сколько осталось попыток
+  remainingLetters: 0, // какие использовались буквы
   charLetterUsage(letter) {
     if (this.lettersUsed.includes(letter)) {
       console.log("repeat");
