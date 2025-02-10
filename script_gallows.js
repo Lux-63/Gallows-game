@@ -510,7 +510,6 @@ function gameOver() {
   }
   buttonOff();
 }
-
 function victory() {
   gameInfoElem.innerHTML = gameInfo.playerWin + gameState.randomWord + '"';
   drawPlayerWin();
